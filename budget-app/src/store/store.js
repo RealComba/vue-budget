@@ -6,6 +6,7 @@ export const storeTransaction = defineStore ('transaction', () => {
     const earnings = ref([0])
     const transaction = ref ([])
     const goals = ref ([])
+    const showForm = ref('close')
 
     let newId = 0
 
@@ -56,6 +57,10 @@ export const storeTransaction = defineStore ('transaction', () => {
 
     })
 
+    function closeForm(data) {
+        showForm.value = data
+    }
+
     watch (earnings.value, () => {
         console.log(earnings)
     })
@@ -70,6 +75,8 @@ export const storeTransaction = defineStore ('transaction', () => {
         newTsx,
         transaction,
         Goals,
-        goals
+        goals,
+        closeForm,
+        showForm,
     }
 })

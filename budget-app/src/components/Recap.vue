@@ -4,21 +4,7 @@ import { computed } from "vue"
 
 // const { totalValue } = totalTransaction()
 const store = storeTransaction()
-
-  function randomColor() {
-    const colors = [
-      'bg-red-500',
-      'bg-blue-500',
-      'bg-green-500',
-      'bg-yellow-500',
-      'bg-purple-500',
-      'bg-pink-500',
-      'bg-indigo-500',
-      'bg-teal-500'
-    ];
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-  }
+const colors = ["bg-blue-500", "bg-green-500", "bg-purple-500"]
 
 function getPercent(goal) {
     return Math.round((goal.firstAmount/goal.maxAmount) * 100)
@@ -41,10 +27,10 @@ const lastGoal = computed(() => {
             <div class="flex flex-row justify-between pr-7 pl-7 p-3 items-center">
                 <div class="flex flex-row gap-3 items-center">
                     <div class="rounded-full p-2 w-4 h-4"
-                    :class="randomColor()"></div>
+                    :class="colors[idx % colors.length]"></div>
                     <div class="flex flex-col">
-                        <p class="font-bold">{{ goal.name }}</p>
-                        <p class="text-gray-400">{{ `€${goal.firstAmount}` }} di {{ `€${goal.maxAmount}` }}</p>
+                        <p class="text-base font-semibold">{{ goal.name }}</p>
+                        <p class="text-gray-400 text-sm">{{ `€${goal.firstAmount}` }} di {{ `€${goal.maxAmount}` }}</p>
                     </div>
                 </div>
                 <p class="font-bold text-lg">{{ getPercent(goal) }}%</p>
