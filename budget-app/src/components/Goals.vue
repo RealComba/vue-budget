@@ -14,26 +14,35 @@ function newGoal () {
     if (firstAmount.value > maxAmount.value) return
     
     store.Goals(name.value, firstAmount.value, maxAmount.value)
+    store.closeGoalsForm('close')
     name.value = null
     firstAmount.value = null
     maxAmount.value = null
 }
 
+function closeGoal(event) {
+    store.closeGoalsForm(event)
+}
+
 </script>
 
 <template>
-     <div class="flex flex-row justify-center m-8 h-90">
-        <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-70 text-center gap-4">
-            <label class="font-bold" for="amount">Nome Obiettivo</label>
-            <input class="bg-gray-200 rounded-lg p-2 text-center" type="text" v-model="name">
-
-            <label class="font-bold" for="categories">Importo di Partenza</label>
-            <input class="text-center p-2 bg-gray-200 rounded-lg"name="categories" id="transaction" v-model.number="firstAmount">
-
-            <label class="font-bold" for="type">Importo da Raggiungere</label>
-            <input class="text-center p-2 bg-gray-200 rounded-lg" type="text" id="transaction-type" v-model.number="maxAmount">
-
-            <button class="bg-gray-200 p-2 rounded-lg font-bold "@click="newGoal()">Aggiungi obiettivo</button>
-         </div>
+     <div class="flex flex-row justify-center m-8 h-105">
+        <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-80 gap-6">
+            <div class="flex flex-col gap-2">
+                <button @click="closeGoal('close')" class="flex justify-end font-bold text-lg">X</button>
+                <label class="font-bold text-xl" for="amount">Nome Obiettivo</label>
+                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="Nome obiettivo" type="text" v-model="name">
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-bold text-xl" for="categories">Importo di Partenza</label>
+                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="0.00€" name="categories" id="transaction" v-model.number="firstAmount">
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-bold text-xl" for="type">Importo da Raggiungere</label>
+                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="0.00€" type="text" id="transaction-type" v-model.number="maxAmount">
+            </div>
+            <button class="bg-black text-white p-2 rounded-lg font-bold" @click="newGoal()">Aggiungi obiettivo</button>
+        </div>
     </div>
 </template>

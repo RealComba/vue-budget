@@ -27,7 +27,7 @@ const lastTransaction = computed (() => {
                     <div class="bg-green-400 rounded-md w-10 h-10">
                     </div>
                 <div class="flex flex-col m-0px text-container">
-                    <p class="text-lg">{{ card.type }}</p>
+                    <p class="text-lg font-medium ">{{ card.type }}</p>
                     <p class="text-md text-gray-500">{{ card.date }}</p>
                 </div>
                 </div>
@@ -38,7 +38,7 @@ const lastTransaction = computed (() => {
                 <div class="bg-red-400 rounded-md w-10 h-10">
                 </div>
                 <div class="flex flex-col m-0px text-container">
-                    <p class="text-lg">{{ card.type }}</p>
+                    <p class="text-lg font-medium">{{ card.type }}</p>
                     <p class="text-md text-gray-500">{{ card.date }}</p>
                 </div>
                 </div>
@@ -49,7 +49,7 @@ const lastTransaction = computed (() => {
                 <div class="bg-blue-400 rounded-md w-10 h-10">
                 </div>
                 <div class="flex flex-col m-0px text-container">
-                    <p class="text-lg">{{ card.type }}</p>
+                    <p class="text-lg font-medium">{{ card.type }}</p>
                     <p class="text-md text-gray-500">{{ card.date }}</p>
                 </div>
                 </div>

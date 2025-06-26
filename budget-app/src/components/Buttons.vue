@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import Form from './Form.vue'
 import { storeTransaction } from '/src/store/store.js'; 
+import Goals from './Goals.vue'
 
 const store = storeTransaction()
 
@@ -10,8 +11,10 @@ function addTransaction() {
 }
 
 function addGoal() {
-    
+    store.closeGoalsForm('active')
 }
+
+
 
 </script>
 
@@ -48,9 +51,17 @@ function addGoal() {
             <div v-if="store.showForm === 'active' " class="fixed inset-0 z-50 flex items-center justify-center">
                 <div class="absolute inset-0 bg-black/60 "></div>
                 <div class="relative z-10">
-                <Form></Form>
+                    <Form></Form>
                 </div>
             </div>
+            </transition>
+            <transition name="fade">
+                <div v-if="store.showGoalsForm === 'active' " class="fixed inset-0 z-50 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-black/60 "></div>
+                    <div class="relative z-10">
+                        <Goals></Goals>
+                    </div>
+                </div>
         </transition>
     </div>
 </template>

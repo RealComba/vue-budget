@@ -7,8 +7,18 @@ export const storeTransaction = defineStore ('transaction', () => {
     const transaction = ref ([])
     const goals = ref ([])
     const showForm = ref('close')
+    const showGoalsForm = ref('close')
 
     let newId = 0
+
+    function formatDate(date) {
+    const now = new Date()
+    const d = new Date(date)
+    const diff = now.setHours(0,0,0,0) - d.setHours(0,0,0,0)
+    if (diff === 0) return 'Today'
+    if (diff === 86400000) return 'Yesterday'
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) 
+    }
 
     function newTsx(category, amount, type) {
         if (isNaN(amount)) return
@@ -25,7 +35,7 @@ export const storeTransaction = defineStore ('transaction', () => {
             category: category,
             amount: amount,
             type: type,
-            date: 'today'
+            date: formatDate(Date.now())
         };
         transaction.value.push(newTransaction)
     }
@@ -39,7 +49,18 @@ export const storeTransaction = defineStore ('transaction', () => {
             firstAmount: firstAmount,
             maxAmount: maxAmount,
         }
+
+        const transactionGoal = {
+            id: newId++,
+            category: 'savings',
+            amount: firstAmount,
+            type: `Risparmi Obiettivo ${name}`,
+            date: formatDate(Date.now())
+        }
+
         goals.value.push(newGoals)
+        transaction.value.push(transactionGoal)
+        expenses.value.push(firstAmount)
     }
     
     const expensesTotal = computed(() => {
@@ -61,6 +82,10 @@ export const storeTransaction = defineStore ('transaction', () => {
         showForm.value = data
     }
 
+    function closeGoalsForm(data) {
+        showGoalsForm.value = data
+    }
+
     watch (earnings.value, () => {
         console.log(earnings)
     })
@@ -78,5 +103,7 @@ export const storeTransaction = defineStore ('transaction', () => {
         goals,
         closeForm,
         showForm,
+        closeGoalsForm,
+        showGoalsForm,
     }
 })
