@@ -14,12 +14,12 @@ const store = storeTransaction()
                 <p class="text-white text-4xl font-bold">{{ `€${ store.balance }` }}</p>
             </div>
             <div class="flex flex-col">
-                <div v-if="store.totalValue < 0"class="flex flex-row">
-                    <!-- <img class="w-4 h-4" src="/budget-app/src/img/arrow.png" alt=""> -->
+                <div v-if="store.totalValue < 0"class="flex flex-row items-center gap-2">
+                    <img class="w-8 h-8" src="/img/arrow.png" alt="">
                     <p class="text-white">{{ `-€${ Math.abs(store.totalValue) } questo mese` }}</p>
                 </div>
                 <div v-else class="flex flex-row items-center gap-2 ">
-                    <img class="w-4 h-4" src="/budget-app/src/img/increase.png" alt="">
+                    <img class="w-6 h-6" src="/img/increase.png" alt="">
                     <p class="text-white">{{ `€${store.totalValue} questo mese `}}</p>
                 </div>
             </div>

@@ -2,7 +2,6 @@
 import { storeTransaction } from "/src/store/store.js"
 import { computed } from "vue"
 
-// const { totalValue } = totalTransaction()
 const store = storeTransaction()
 const colors = ["bg-blue-500", "bg-green-500", "bg-purple-500"]
 
@@ -21,7 +20,7 @@ const lastGoal = computed(() => {
     <div class="flex flex-col border-1 rounded-lg border-gray-300 w-130 h-95">
         <div class="flex flex-row justify-between pl-7 pr-7 pt-5 pb-3">
             <p class="font-bold text-xl">I Tuoi Obiettivi</p>
-            <a href="">Vedi Tutti</a>
+            <RouterLink to="/goals">Vedi Tutti</RouterLink>
         </div>
         <div v-for="(goal, idx) in lastGoal" :key="goal.id">
             <div class="flex flex-row justify-between pr-7 pl-7 p-3 items-center">
