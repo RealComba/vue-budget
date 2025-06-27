@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import Form from './TransactionForm.vue'
 import { storeTransaction } from '/src/store/store.js'; 
 import Goals from './GoalsForm.vue'

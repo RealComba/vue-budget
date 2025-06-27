@@ -8,6 +8,8 @@ export const storeTransaction = defineStore ('transaction', () => {
     const goals = ref ([])
     const showForm = ref('close')
     const showGoalsForm = ref('close')
+    const firstAmount = ref([])
+    const maxAmount = ref([])
 
     let newId = 0
 
@@ -44,28 +46,46 @@ export const storeTransaction = defineStore ('transaction', () => {
         transaction.value.push(newTransaction)
     }
 
-    function Goals (name, firstAmount, maxAmount) {
-        if(isNaN(firstAmount && maxAmount)) return
+    function Goals (name, first, max) {
+        if(isNaN(first && max)) return
 
         const newGoals = {
             id: newId++,
             name: name,
-            firstAmount: firstAmount,
-            maxAmount: maxAmount,
+            firstAmount: first,
+            maxAmount: max,
         }
 
         const transactionGoal = {
             id: newId++,
             category: 'savings',
-            amount: numberWithCommas(firstAmount),
+            amount: numberWithCommas(first),
             type: `Risparmi Obiettivo ${name}`,
             date: formatDate(Date.now())
         }
 
         goals.value.push(newGoals)
         transaction.value.push(transactionGoal)
-        expenses.value.push(firstAmount)
+        expenses.value.push(first)
+        firstAmount.value.push(first)
+        maxAmount.value.push(max)
     }
+
+    function addGoalAmount (id, newAmount) {
+        const goalActive = goals.value.find(g => g.id === id)
+        goalActive.firstAmount = newAmount
+        return goalActive
+    }
+    
+    const totFirstAmount = computed (() => {
+        const goalAmount = goals.value.map(g => g.firstAmount) 
+        return goalAmount.reduce((totale, importo) => totale + importo, 0)
+    })
+
+    const totMaxAmount = computed (() => {
+        const goalAmount = goals.value.map(g => g.maxAmount) 
+        return goalAmount.reduce((totale, importo) => totale + importo, 0)
+    })
     
     const expensesTotal = computed(() => {
         const exp = expenses?.value ?? []
@@ -114,5 +134,8 @@ export const storeTransaction = defineStore ('transaction', () => {
         closeGoalsForm,
         showGoalsForm,
         balance,
+        totFirstAmount,
+        totMaxAmount,
+        addGoalAmount,
     }
 })
