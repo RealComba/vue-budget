@@ -20,6 +20,10 @@ export const storeTransaction = defineStore ('transaction', () => {
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) 
     }
 
+    function numberWithCommas(x) {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
+
     function newTsx(category, amount, type) {
         if (isNaN(amount)) return
         if (category === 'expense' || category === 'savings') {
@@ -33,7 +37,7 @@ export const storeTransaction = defineStore ('transaction', () => {
         const newTransaction = {
             id: newId++,
             category: category,
-            amount: amount,
+            amount: numberWithCommas(amount),
             type: type,
             date: formatDate(Date.now())
         };
@@ -53,7 +57,7 @@ export const storeTransaction = defineStore ('transaction', () => {
         const transactionGoal = {
             id: newId++,
             category: 'savings',
-            amount: firstAmount,
+            amount: numberWithCommas(firstAmount),
             type: `Risparmi Obiettivo ${name}`,
             date: formatDate(Date.now())
         }
@@ -74,8 +78,12 @@ export const storeTransaction = defineStore ('transaction', () => {
     })
 
     const totalValue = computed(() => {
-        return earningsTotal.value - expensesTotal.value
+        return numberWithCommas(earningsTotal.value - expensesTotal.value)
 
+    })
+
+    const balance = computed (() => {
+        return numberWithCommas(earningsTotal.value - expensesTotal.value + 12000)
     })
 
     function closeForm(data) {
@@ -105,5 +113,6 @@ export const storeTransaction = defineStore ('transaction', () => {
         showForm,
         closeGoalsForm,
         showGoalsForm,
+        balance,
     }
 })

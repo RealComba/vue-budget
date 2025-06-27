@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import Form from './Form.vue'
+import Form from './TransactionForm.vue'
 import { storeTransaction } from '/src/store/store.js'; 
-import Goals from './Goals.vue'
+import Goals from './GoalsForm.vue'
 
 const store = storeTransaction()
 

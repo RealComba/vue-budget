@@ -32,7 +32,7 @@ function closeAdd(event) {
             <div class="flex flex-col gap-2">
                 <button @click="closeAdd('close')" class="flex justify-end font-bold text-lg">X</button>
                 <label class="font-bold text-xl" for="amount">Inserisci Importo</label>
-                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="0.00€" type="text" v-model.number="transaction">
+                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="0.00€" type="number" v-model.number="transaction">
             </div>
             <div class="flex flex-col gap-2">
                 <label class="font-bold text-xl" for="type">Descrizione Transazione</label>

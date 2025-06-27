@@ -2,15 +2,15 @@
 import Header from './components/Header.vue';
 import Amount from './components/Amount.vue';
 import Recap from './components/Recap.vue';
-// import Form from './components/Form.vue'
 import Cards from './components/Cards.vue';
-// import Goals from './components/Goals.vue';
 import Buttons from './components/Buttons.vue';
+import Total from './components/Total.vue';
 
 </script>
 
 <template>
   <Header></Header>
+  <Total></Total>
   <div class="flex flex-row justify-center">
       <Buttons></Buttons>
   </div>

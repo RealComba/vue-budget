@@ -36,11 +36,11 @@ function closeGoal(event) {
             </div>
             <div class="flex flex-col gap-2">
                 <label class="font-bold text-xl" for="categories">Importo di Partenza</label>
-                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="0.00€" name="categories" id="transaction" v-model.number="firstAmount">
+                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="0.00€" type="number" name="categories" id="transaction" v-model.number="firstAmount">
             </div>
             <div class="flex flex-col gap-2">
                 <label class="font-bold text-xl" for="type">Importo da Raggiungere</label>
-                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="0.00€" type="text" id="transaction-type" v-model.number="maxAmount">
+                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="0.00€" type="number" id="transaction-type" v-model.number="maxAmount">
             </div>
             <button class="bg-black text-white p-2 rounded-lg font-bold" @click="newGoal()">Aggiungi obiettivo</button>
         </div>
