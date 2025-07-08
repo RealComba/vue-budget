@@ -1,7 +1,28 @@
 <script setup>
 import { storeTransaction } from "/src/store/store.js"
+import { ref } from "vue"
 
 const store = storeTransaction()
+const name = ref()
+const firstAmount = ref()
+const maxAmount = ref()
+
+function newGoal () {
+     if (!name.value || !firstAmount.value || !maxAmount.value) {
+        return console.log('error')
+    }
+    if (firstAmount.value > maxAmount.value) return
+    
+    store.Goals(name.value, firstAmount.value, maxAmount.value)
+    store.closeGoalsForm('close')
+    name.value = null
+    firstAmount.value = null
+    maxAmount.value = null
+}
+
+function closeGoal(event) {
+    store.closeGoalsForm(event)
+}
 
 </script>
 
@@ -10,7 +31,7 @@ const store = storeTransaction()
         <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-80 gap-6">
             <div class="flex flex-col gap-2">
                 <button @click="closeGoal('close')" class="flex justify-end font-bold text-lg">X</button>
-                <label class="font-bold text-xl" for="amount">{{`Aggiungi a ${goal}`}}</label>
+                <label class="font-bold text-xl" for="amount">Nome Obiettivo</label>
                 <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="Nome obiettivo" type="text" v-model="name">
             </div>
             <div class="flex flex-col gap-2">
@@ -25,5 +46,3 @@ const store = storeTransaction()
         </div>
     </div>
 </template>
-
-

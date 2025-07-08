@@ -10,9 +10,6 @@ export const storeTransaction = defineStore ('transaction', () => {
     const showGoalsForm = ref('close')
     const firstAmount = ref([])
     const maxAmount = ref([])
-    const goalActive = ref()
-    const category = ref()
-
 
     let newId = 0
 
@@ -26,14 +23,14 @@ export const storeTransaction = defineStore ('transaction', () => {
     }
 
     function numberWithCommas(x) {
-        return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 
     function newTsx(category, amount, type) {
         if (isNaN(amount)) return
         if (category === 'expense' || category === 'savings') {
             expenses.value.push(amount)
-        } else if (category === 'earning' || category === 'refund-savings') {
+        } else if (category === 'earning') {
             earnings.value.push(amount)
         } else {
             return
@@ -50,8 +47,6 @@ export const storeTransaction = defineStore ('transaction', () => {
     }
 
     function Goals (name, first, max) {
-        first = parseInt(first)
-        max = parseInt(max)
         if(isNaN(first && max)) return
 
         const newGoals = {
@@ -76,52 +71,10 @@ export const storeTransaction = defineStore ('transaction', () => {
         maxAmount.value.push(max)
     }
 
-    function setActiveGoal (id) {
-        goalActive.value = goals.value.find(g => g.id === id)
-        return goalActive.value
-    }
-
-    function newAmount(newAmount) {
-        const tot = goalActive.value.firstAmount
-        goalActive.value.firstAmount = tot + parseInt(newAmount.value)
-        if (newAmount.value > 0) {
-            category.value = 'savings'
-            expenses.value.push(newAmount.value)
-        } else {
-            category.value = 'refund-savings'
-            earnings.value.push(Math.abs(newAmount.value))
-        }
-
-        const transactionGoal = {
-            id: newId++,
-            category: category.value,
-            amount: newAmount.value,
-            type: `Risparmi Obiettivo ${goalActive.value.name}`,
-            date: formatDate(Date.now())
-        }
-
-        transaction.value.push(transactionGoal)
-    }
-
-    function modifyGoal (name, max) {
-        goalActive.value.name = name
-        goalActive.value.maxAmount = max
-    }
-
-    function deleteGoal() {
-
-        const newTransaction = {
-            id: newId++,
-            category: 'refund-savings',
-            amount: goalActive.value.firstAmount,
-            type: `Rimborso Risparmi Obiettivo ${goalActive.value.name}`,
-            date: formatDate(Date.now())
-        }
-
-        goals.value = goals.value.filter(g => g.id !== goalActive.value.id)
-        console.log(goals.value)
-        transaction.value.push(newTransaction)
-        earnings.value.push(goalActive.value.firstAmount)
+    function addGoalAmount (id, newAmount) {
+        const goalActive = goals.value.find(g => g.id === id)
+        goalActive.firstAmount = newAmount
+        return goalActive
     }
     
     const totFirstAmount = computed (() => {
@@ -141,7 +94,7 @@ export const storeTransaction = defineStore ('transaction', () => {
 
     const earningsTotal = computed(() => {
         const earn = earnings?.value ?? []
-        return (earn.reduce((totale, transazione) => totale + transazione, 0))
+        return earn.reduce((totale, transazione) => totale + transazione, 0)
     })
 
     const totalValue = computed(() => {
@@ -160,7 +113,6 @@ export const storeTransaction = defineStore ('transaction', () => {
     function closeGoalsForm(data) {
         showGoalsForm.value = data
     }
-
 
     watch (earnings.value, () => {
         console.log(earnings)
@@ -184,10 +136,6 @@ export const storeTransaction = defineStore ('transaction', () => {
         balance,
         totFirstAmount,
         totMaxAmount,
-        setActiveGoal,
-        goalActive,
-        newAmount,
-        modifyGoal,
-        deleteGoal
+        addGoalAmount,
     }
 })

@@ -16,7 +16,7 @@ const lastTransaction = computed (() => {
 <div class="flex flex-col border-1 rounded-lg border-gray-300 w-130 h-95">
     <div class="flex flex-row justify-between p-7">
         <p class="font-bold text-xl">Transazioni Recenti</p>
-        <RouterLink to="/transaction">Vedi Tutte</RouterLink>
+        <a href="">Vedi Tutte</a>
     </div>
     <div class="flex flex-col m-5 gap-5">
         <div v-for="card in lastTransaction "
@@ -54,17 +54,6 @@ const lastTransaction = computed (() => {
                 </div>
                 </div>
                 <p class="font-bold text-lg text-red-600 ">{{ `- ${card.amount}€ ` }}</p>
-        </span>
-                <span class="flex flex-row items-center justify-between h-10 m-10 p-5" v-if="card.category === 'refund-savings'">
-                <div class="flex flex-row items-center gap-5">
-                <div class="bg-blue-400 rounded-md w-10 h-10">
-                </div>
-                <div class="flex flex-col m-0px text-container">
-                    <p class="text-lg font-medium">{{ card.type }}</p>
-                    <p class="text-md text-gray-500">{{ card.date }}</p>
-                </div>
-                </div>
-                <p class="font-bold text-lg text-green-600 ">{{ ` ${Math.abs(card.amount)}€ ` }}</p>
         </span>
         </div>
     </div>

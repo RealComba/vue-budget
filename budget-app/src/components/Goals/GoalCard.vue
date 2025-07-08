@@ -1,16 +1,29 @@
 <script setup>
 import { storeTransaction } from "/src/store/store.js"
 import { ref } from "vue"
+import GoalForm from "./GoalAddForm.vue"
+import GoalModifyForm from "./GoalModifyForm.vue"
+import GoalDelete from "./GoalDeleteLabel.vue" 
 
 const store = storeTransaction()
-const newAmount = ref(100)
 
 function getPercent(goal) {
     return Math.round((goal.firstAmount/goal.maxAmount) * 100)
 }
 
-function addMoney(goalId) {
-    store.addGoalAmount(goalId, newAmount.value)
+function setActiveGoal(goalId) {
+    store.closeForm('active')
+    store.setActiveGoal(goalId)
+}
+
+function modifyGoal(value, goalId) {
+    store.closeGoalsForm(value)
+    store.setActiveGoal(goalId)
+}
+
+function deleteGoal(value, goalId) {
+    store.closeGoalsForm(value)
+    store.setActiveGoal(goalId)
 }
 
 </script>
@@ -41,12 +54,46 @@ function addMoney(goalId) {
                 <p class="pt-4 text-md text-gray-500 ">{{ `€${goal.maxAmount}` }}</p>
             </div>
             <div class="flex flex-row pt-4 gap-2">
-                <button class="w-70 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" @click="addMoney(goal.id)">+ Aggiungi</button>
-                <button class="w-15 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" >Md</button>
-                <button class="w-15 border-1 rounded-md border-gray-200 p-1 text-black font-semibold hover:bg-gray-100 ">X</button>
+                <button class="w-70 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" @click="setActiveGoal(goal.id)">+ Aggiungi</button>
+                <button class="w-15 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" @click="modifyGoal('ModifyGoals', goal.id)" >Md</button>
+                <button class="w-15 border-1 rounded-md border-gray-200 p-1 text-black font-semibold hover:bg-gray-100 " @click="deleteGoal('deleteGoals', goal.id)">X</button>
             </div>
         </div>
     </div>
+    <transition name="fade">
+            <div v-if="store.showForm === 'active' " class="fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-black/60 "></div>
+                <div class="relative z-10">
+                    <GoalForm></GoalForm>
+                </div>
+            </div>
+    </transition>
+        <transition name="fade">
+            <div v-if="store.showGoalsForm === 'ModifyGoals' " class="fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-black/60 "></div>
+                <div class="relative z-10">
+                    <GoalModifyForm></GoalModifyForm>   
+                </div>
+            </div>
+    </transition>
+    <transition name="fade">
+            <div v-if="store.showGoalsForm === 'deleteGoals' " class="fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-black/60 "></div>
+                <div class="relative z-10">
+                    <GoalDelete></GoalDelete>   
+                </div>
+            </div>
+    </transition>
 </div>
 
 </template>
+
+<style scoped>
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+</style>
