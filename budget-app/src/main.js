@@ -6,11 +6,13 @@ import { createWebHistory, createRouter } from 'vue-router'
 import Goals from './pages/GoalsPage.vue'
 import Transaction from './pages/TransactionPage.vue'
 import App from './App.vue'
+import Chart from './pages/Chart.vue'
 
 const routes = [
   { path: '/', component: Home },
   { path: '/goals', component: Goals },
   { path: '/transaction', component: Transaction },
+  { path: '/chart', component: Chart },
 ]
 
 const router = createRouter({

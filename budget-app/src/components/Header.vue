@@ -1,5 +1,4 @@
 <template>
-<p>Budget App</p>
 </template>
 
 <style scoped>
