@@ -17,7 +17,7 @@ function addAmount (){
 
 <template>
      <div class="flex flex-row justify-center m-8 h-80">
-        <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-85 gap-6 fixed">
+        <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-80 sm:w-90 gap-6 fixed">
             <div class="flex flex-col gap-2">
                 <div class="flex flex-row justify-between">
                     <label class="font-bold text-xl pb-2" for="amount">Importo da aggiungere a "{{ store.goalActive.name }}"</label>

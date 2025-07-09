@@ -16,7 +16,7 @@ function del() {
 </script>
 
 <template>
-    <div class="flex flex-row justify-center m-8 h-45">
+    <div class="flex flex-row justify-center m-8 h-60 w-20 sm:h-45 sm:w-130">
         <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-140 gap-6">
             <div class="flex flex-col gap-2">
                 <p class="font-bold text-xl">Elimina Obiettivo</p>

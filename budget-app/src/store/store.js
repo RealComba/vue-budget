@@ -65,7 +65,7 @@ export const storeTransaction = defineStore ('transaction', () => {
             id: newId++,
             category: 'savings',
             amount: numberWithCommas(first),
-            type: `Risparmi Obiettivo ${name}`,
+            type: `${name}`,
             date: formatDate(Date.now())
         }
 
@@ -96,7 +96,7 @@ export const storeTransaction = defineStore ('transaction', () => {
             id: newId++,
             category: category.value,
             amount: newAmount.value,
-            type: `Risparmi Obiettivo ${goalActive.value.name}`,
+            type: `${goalActive.value.name}`,
             date: formatDate(Date.now())
         }
 
@@ -114,7 +114,7 @@ export const storeTransaction = defineStore ('transaction', () => {
             id: newId++,
             category: 'refund-savings',
             amount: goalActive.value.firstAmount,
-            type: `Rimborso Risparmi Obiettivo ${goalActive.value.name}`,
+            type: `${goalActive.value.name}`,
             date: formatDate(Date.now())
         }
 

@@ -6,7 +6,7 @@ const store = storeTransaction()
 </script>
 
 <template>
-     <div class="flex flex-row justify-center m-8 h-105">
+     <div class="flex flex-row justify-center m-8 w-60 h-105 sm:w-100">
         <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-80 gap-6">
             <div class="flex flex-col gap-2">
                 <button @click="closeGoal('close')" class="flex justify-end font-bold text-lg">X</button>

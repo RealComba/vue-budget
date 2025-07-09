@@ -30,7 +30,10 @@ function closeGoal(event) {
      <div class="flex flex-row justify-center m-8 h-105">
         <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-80 gap-6">
             <div class="flex flex-col gap-2">
-                <button @click="closeGoal('close')" class="flex justify-end font-bold text-lg">X</button>
+                <div class="flex flex-row justify-between pb-2">
+                    <p class="font-bold text-2xl">Nuovo Obiettivo</p>
+                    <button @click="closeGoal('close')" class="flex justify-end font-bold text-lg">X</button>
+                </div>
                 <label class="font-bold text-xl" for="amount">Nome Obiettivo</label>
                 <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="Nome obiettivo" type="text" v-model="name">
             </div>

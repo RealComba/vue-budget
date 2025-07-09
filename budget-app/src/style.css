@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+
+
+:root {
+  --xs: 350px;
+}
+
 *{
   margin: 0px;
+}
+
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+  --color-primary: oklch(0.92 0.19 114.08);
+  --breakpoint-3xl: 1920px;
 }

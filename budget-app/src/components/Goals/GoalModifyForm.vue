@@ -21,7 +21,7 @@ function edit() {
 </script>
 
 <template>
-     <div class="flex flex-row justify-center m-8 h-90">
+     <div class="flex flex-row justify-center m-8 h-90 w-70 sm:h-90 sm:w-100">
         <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-85 gap-6">
             <div class="flex flex-col gap-2">
                 <div class="flex flex-row justify-between pb-4">

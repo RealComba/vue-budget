@@ -1,9 +1,11 @@
 <script setup>
 import { storeTransaction } from "/src/store/store.js"
-import { ref } from "vue"
 import GoalForm from "./GoalAddForm.vue"
 import GoalModifyForm from "./GoalModifyForm.vue"
 import GoalDelete from "./GoalDeleteLabel.vue" 
+
+
+const colors = ["bg-red-500", "bg-pink-500", "bg-purple-500", "bg-violet-500", "bg-indigo-500", "bg-blue-500", "bg-sky-500", "bg-cyan-500", "bg-teal-500", "bg-green-500", "bg-lime-500", "bg-yellow-500", "bg-amber-500", "bg-orange-500", "bg-rose-500", "bg-neutral-500", "bg-zinc-500", "bg-gray-500", "bg-slate-500", "bg-stone-500"]
 
 const store = storeTransaction()
 
@@ -29,12 +31,13 @@ function deleteGoal(value, goalId) {
 </script>
 
 <template>
-<div class="flex justify-center flex-col items-center gap-5">
-    <div v-for="(goal) in store.goals" :key="goal.id">
-        <div class="border-1 rounded-md border-gray-300 w-120 p-10">
-            <div class="flex flex-row justify-between items-center">
+    <div v-for="(goal, idx) in store.goals" :key="goal.id">
+        <div class="flex justify-center p-2">
+        <div class="border-1 rounded-md border-gray-300 w-120 sm:p-6">
+            <div class="flex flex-row justify-between items-center p-4">
                 <div class="flex flex-row items-center gap-5">
-                    <div class="rounded-full p-2 w-5 h-5 bg-blue-700"></div>
+                    <div class="rounded-full p-2 w-5 h-5"
+                    :class="colors[idx % colors.length]"></div>
                     <div class="flex flex-col">
                         <p class="font-semibold text-lg">{{ goal.name }}</p>
                         <p class="text-md text-gray-500">{{ `Mancano €${goal.maxAmount - goal.firstAmount}` }}</p>
@@ -42,21 +45,21 @@ function deleteGoal(value, goalId) {
                 </div>
                 <p class="font-bold text-xl">{{ getPercent(goal) }}%</p>
             </div>
-            <div class="pt-6">
-                <div class="rounded-full bg-gray-100 relative p-2 bg-black w-full">
+            <div class="pt-6 p-4 w-9/10 sm:w-100">
+                <div class="rounded-full bg-gray-100 relative p-2 bg-black w-9/10 sm:w-100">
                     <div class="rounded-full p-2 bg-black absolute top-0 left-0 rounded-r-sm"
                         :style = "{ width: getPercent(goal) + '%' }">
                     </div> 
                 </div>
             </div>
-            <div class="flex flex-row justify-between ">
-                <p class="pt-4 text-md text-gray-500 ">{{ `€${goal.firstAmount}` }}</p>
-                <p class="pt-4 text-md text-gray-500 ">{{ `€${goal.maxAmount}` }}</p>
+            <div class="flex flex-row justify-between w-8/10 pl-4 sm:w-100">
+                <p class="text-md xs:text-xl text-gray-500 ">{{ `€${goal.firstAmount}` }}</p>
+                <p class="text-md text-gray-500 ">{{ `€${goal.maxAmount}` }}</p>
             </div>
-            <div class="flex flex-row pt-4 gap-2">
-                <button class="w-70 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" @click="setActiveGoal(goal.id)">+ Aggiungi</button>
-                <button class="w-15 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" @click="modifyGoal('ModifyGoals', goal.id)" >Md</button>
-                <button class="w-15 border-1 rounded-md border-gray-200 p-1 text-black font-semibold hover:bg-gray-100 " @click="deleteGoal('deleteGoals', goal.id)">X</button>
+            <div class="flex flex-row pt-4 gap-2 p-2">
+                <button class="w-1/2 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" @click="setActiveGoal(goal.id)">+ Aggiungi</button>
+                <button class="w-1/3 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" @click="modifyGoal('ModifyGoals', goal.id)" >Md</button>
+                <button class="w-1/6 border-1 rounded-md border-gray-200 p-1 text-black font-semibold hover:bg-gray-100" @click="deleteGoal('deleteGoals', goal.id)">X</button>
             </div>
         </div>
     </div>
@@ -85,7 +88,6 @@ function deleteGoal(value, goalId) {
             </div>
     </transition>
 </div>
-
 </template>
 
 <style scoped>

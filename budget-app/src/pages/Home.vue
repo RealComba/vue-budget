@@ -10,17 +10,15 @@ import Total from '/src/components/Total.vue';
 </script>
 
 <template>
+    <div class="container">
     <Header></Header>
     <Total></Total>
     <div class="flex flex-row justify-center">
         <Buttons></Buttons>
     </div>
-    <div class="flex justify-center">
-        <div class="amount">
-            <Recap></Recap>
-            <Amount></Amount>
-            <Cards></Cards>
-        </div>
+          <Recap></Recap>
+          <Amount></Amount>
+          <Cards></Cards>
     </div>
 </template>
 
@@ -36,4 +34,10 @@ import Total from '/src/components/Total.vue';
   height: 100%;
 }
 
+@media (max-width: 395px) {
+    .container {
+        min-width: 395px;
+        overflow-x: auto;
+    }
+}
 </style>
