@@ -60,9 +60,17 @@ function closeAdd(event) {
                         <option value="viaggi">Viaggi</option>
                         <option value="altro">Altre Spese</option>
                     </span>
+                    <span v-if="category === 'earning'">
+                        <option value="stipendio">Stipendio</option>
+                        <option value="regali">Regali</option>
+                        <option value="mance">Mance</option>
+                        <option value="freelancer">Freelancer</option>
+                        <option value="trading">Trading</option>
+                        <option value="altro">Altri Guadagni</option>
+                    </span>
                 </select>
             </div>
-            <input v-if="tsxType === 'altro' "class="p-2 rounded-lg h-12 text-base border-gray-400 border-1 font-bold text-black placeholder:font-semibold" placeholder="Inserisci Descrizione Spesa" type="text" id="transaction-type">
+            <input v-if="tsxType === 'altro' "class="p-2 rounded-lg h-12 text-base border-gray-400 border-1 font-bold text-black placeholder:font-semibold" placeholder="Inserisci Descrizione" type="text" id="transaction-type">
             <button class="bg-black text-white p-2 h-12 text-lg rounded-lg font-bold "@click="newTransaction()">Aggiungi Transazione</button>
          </div>
     </div>
