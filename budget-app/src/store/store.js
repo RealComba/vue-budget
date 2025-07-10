@@ -16,6 +16,9 @@ export const storeTransaction = defineStore ('transaction', () => {
 
     let newId = 0
 
+    const cleanNumber = x => Number(x.replace(/,/g, ''))
+
+
     function formatDate(date) {
     const now = new Date()
     const d = new Date(date)
@@ -150,7 +153,12 @@ export const storeTransaction = defineStore ('transaction', () => {
     })
 
     const balance = computed (() => {
-        return numberWithCommas(earningsTotal.value - expensesTotal.value + 12000)
+        return earningsTotal.value - expensesTotal.value + 12000
+    })
+
+    const totalSavings = computed (() => {
+        return transaction.value.filter(t => t.category === 'savings')
+        .reduce((totale, t) => totale + cleanNumber(t.amount), 0)
     })
 
     function closeForm(data) {
@@ -188,6 +196,7 @@ export const storeTransaction = defineStore ('transaction', () => {
         goalActive,
         newAmount,
         modifyGoal,
-        deleteGoal
+        deleteGoal,
+        totalSavings
     }
 })

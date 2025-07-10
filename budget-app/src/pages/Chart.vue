@@ -1,11 +1,64 @@
 <script setup>
-import Chart from '../components/Barcharts.vue'
+import { storeTransaction } from '../store/store';
+import Chart from '../components/Barcharts.vue';
+import Cake from '../components/Cake.vue';
 
+const store = storeTransaction()
 </script>
 
+
 <template>
-    <div class="container flex flex-row">
-        <Chart></Chart>
+    <div class="flex justify-center">
+        <div class="flex flex-col items-center max-w-140 w-full px-4">
+            <div class="container flex flex-col justify-center p-2 gap-4">
+                <div class="flex flex-row justify-center">
+                    <div class="flex flex-row w-120 items-center pt-10 gap-10">
+                        <img class="w-8" src="https://www.svgrepo.com/show/510041/left-arrow.svg" @click="router.push({ path:'/'})" alt="">
+                        <div class="flex flex-col gap-2">
+                            <p class="font-bold text-2xl sm:text-4xl">Analytics</p>
+                            <p class="text-gray-600">Le tue statistiche finanziarie</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-row justify-center items-center w-full gap-4">
+                    <div class="flex flex-col border-1 border-gray-300 text-center p-5 w-full h-full rounded-lg gap-1">
+                        <p class="font-extrabold text-green-600 text-3xl">€{{ store.totFirstAmount }}</p>
+                        <p class="text-gray-600 text-sm">Risparmi Totali</p>
+                        <p class="text-green-600 text-sm">{{ ` ${Math.round((store.totalSavings/store.balance) * 100)}% del saldo totale ` }}</p>
+                    </div>
+                    <div class="flex flex-col border-1 border-gray-300 text-center p-5 w-full h-full rounded-lg gap-1">
+                        <p class="text-blue-600 font-extrabold text-3xl">€{{ (store.totMaxAmount - store.totFirstAmount) }}</p>
+                        <p class="text-sm text-gray-600  ">Importo da saldare</p>
+                        <p class="text-sm text-blue-600 ">{{ `${Math.round(100 - (store.totFirstAmount/store.totMaxAmount) * 100 || 0)}% ancora da saldare` }}</p>
+                    </div>
+                </div>
+                <div class="flex flex-col p-4 sm:p-10 border-1 border-gray-300 rounded-lg shadow w-full gap-4">
+                    <div class="flex flex-row gap-2 items-center">
+                        <img class="w-7" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/target-svgrepo-com.svg" alt="">
+                        <p class="font-bold text-xl">Progresso Obiettivi</p>
+                    </div>
+                    <Chart/>
+                    <Cake></Cake>
+                </div>
+                <div v-for="goal in store.goals" :key="goal.id" class="flex flex-col rounded-lg border-1 border-gray-300 p-6 gap-3">
+                    <div class="flex flex-row justify-between">
+                        <p class="font-bold text-xl">{{ goal.name }}</p>
+                        <p class="font-bold text-xl">{{ `${Math.round((goal.firstAmount/goal.maxAmount) * 100)}%` }}</p>
+                    </div>
+                    <div class="rounded-full bg-gray-100 relative p-1.25 bg-black">
+                        <div class="rounded-full p-1.25 bg-black absolute top-0 left-0 rounded-r-sm"
+                            :style = "{ width: Math.round((store.totFirstAmount/store.totMaxAmount) * 100) + '%' }">
+                        </div> 
+                    </div>
+                    <p class="text-gray-600">{{ `€${goal.firstAmount} / €${goal.maxAmount}` }}</p>
+                </div>
+            </div>
+        </div>    
     </div>
 </template>
 
+<style scoped>
+body {
+  overflow-x: hidden;
+}
+</style>
