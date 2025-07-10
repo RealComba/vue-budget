@@ -2,8 +2,16 @@
 import { storeTransaction } from '../store/store';
 import Chart from '../components/Barcharts.vue';
 import Cake from '../components/Cake.vue';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const store = storeTransaction()
+const show = ref()
+const router = useRouter()
+
+function active(param) {
+    show.value = param
+}
 </script>
 
 
@@ -32,15 +40,32 @@ const store = storeTransaction()
                         <p class="text-sm text-blue-600 ">{{ `${Math.round(100 - (store.totFirstAmount/store.totMaxAmount) * 100 || 0)}% ancora da saldare` }}</p>
                     </div>
                 </div>
+                <div class="flex flex-row gap-2 items-center bg-gray-100 rounded-lg text-center justify-evenly w-100% p-2">
+                    <button @click="active('build')" class="active:bg-white p-2 rounded-md">Progresso</button>
+                    <button @click="active('exp')" class="active:bg-white rounded-md p-2">Spese</button>
+                    <button @click="active('goal')" class="active:bg-white rounded-md p-2">Obiettivi</button>
+                    <button @click="active('build')" class="active:bg-white rounded-md p-2">Flussi</button>
+                </div>
                 <div class="flex flex-col p-4 sm:p-10 border-1 border-gray-300 rounded-lg shadow w-full gap-4">
-                    <div class="flex flex-row gap-2 items-center">
+                    <div v-if="show === 'goal'"class="flex flex-row gap-2 items-center">
                         <img class="w-7" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/target-svgrepo-com.svg" alt="">
                         <p class="font-bold text-xl">Progresso Obiettivi</p>
                     </div>
-                    <Chart/>
-                    <Cake></Cake>
+                    <div v-if="show === 'exp'"class="flex flex-row gap-2 items-center">
+                        <img class="w-7" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/cake-graphic-svgrepo-com.svg" alt="">
+                        <p class="font-bold text-xl">Spese per Categoria</p>
+                    </div>
+                    <div v-if="show === 'goal'">
+                        <Chart/>
+                    </div>
+                    <div v-else-if="show === 'exp'">
+                        <Cake></Cake>
+                    </div>
+                    <div class="flex flex-row justify-center" v-else>
+                        <p class="font-bold text-xl">In Costruzione :)</p>
+                    </div>
                 </div>
-                <div v-for="goal in store.goals" :key="goal.id" class="flex flex-col rounded-lg border-1 border-gray-300 p-6 gap-3">
+                <div v-if="show === 'goal' "v-for="goal in store.goals" :key="goal.id" class="flex flex-col rounded-lg border-1 border-gray-300 p-6 gap-3">
                     <div class="flex flex-row justify-between">
                         <p class="font-bold text-xl">{{ goal.name }}</p>
                         <p class="font-bold text-xl">{{ `${Math.round((goal.firstAmount/goal.maxAmount) * 100)}%` }}</p>

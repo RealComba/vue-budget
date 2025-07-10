@@ -6,7 +6,7 @@ import { storeTransaction } from '../store/store';
 const cleanAmount = x => Number(x.toString().replace(/,/g, '')) || 0
 const store = storeTransaction()
 const expenses = store.transaction.filter(t => t.category === 'expense')
-const typeList = ['Alimentari', 'Trasporti', 'Intrattenimento', 'Salute', 'Sport', 'Viaggi' , 'Altre Spese']
+const typeList = ['alimentari', 'trasporti', 'intrattenimento', 'salute', 'sport', 'viaggi' , 'altro']
 
 const groupedLabel = []
 
@@ -27,7 +27,8 @@ expenses.forEach((e) => {
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 const options = {
-    aspectRatio: 1.2,
+   responsive: true,
+   aspectRatio: 1.33
 }
 
 const data = {  
@@ -35,8 +36,7 @@ labels: groupedLabel.map(item => item.label),
   datasets: [{
     data: groupedLabel.map(item => item.value),
     borderWidth: 0,
-    cutout: 80,
-    width: 50,
+    cutout: 100,
     backgroundColor: [
      "rgb(239, 68, 68)",    // red-500
       "rgb(249, 115, 22)",   // orange-500
