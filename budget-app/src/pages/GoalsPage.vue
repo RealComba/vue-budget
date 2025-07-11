@@ -18,7 +18,7 @@ function addGoal() {
 
 
 <template>
-<div class="container flex flex-col justify-center gap-5 p-2">
+<div class="flex flex-col justify-center gap-5 p-2">
     <div class="flex justify-center">
         <div class="flex flex-row w-120 justify-between items-center pt-10">
             <img class="w-8" src="https://www.svgrepo.com/show/510041/left-arrow.svg" @click="router.push({ path:'/'})" alt="">

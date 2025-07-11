@@ -13,6 +13,7 @@ export const storeTransaction = defineStore ('transaction', () => {
     const goalActive = ref()
     const category = ref()
     const groupedLabel = ref([])
+    const dark = ref()
 
 
     let newId = 0
@@ -200,5 +201,6 @@ export const storeTransaction = defineStore ('transaction', () => {
         deleteGoal,
         totalSavings,
         groupedLabel,
+        dark
     }
 })

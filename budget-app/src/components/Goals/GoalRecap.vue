@@ -6,7 +6,7 @@ const store = storeTransaction()
 </script>
 
 <template>
-<div class="flex justify-center p-2">
+<div class="flex justify-center">
     <div class="flex flex-row bg-green-600 rounded-lg w-120 h-55 items-center justify-between">
         <div class="flex flex-col justify-center pl-5 sm:pl-10 gap-4">
             <p class="text-green-200 text-lg">Progresso Totale</p>

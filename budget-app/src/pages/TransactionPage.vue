@@ -22,7 +22,7 @@ function addTransaction() {
 </script>
 
 <template>
-<div class="container flex flex-col justify-center p-2 gap-4">
+<div class="flex flex-col justify-center p-2 gap-4">
     <div class="flex flex-row justify-center">
         <div class="flex flex-row w-120 justify-between items-center pt-10">
             <img class="w-8" src="https://www.svgrepo.com/show/510041/left-arrow.svg" @click="router.push({ path:'/'})" alt="">
@@ -45,7 +45,9 @@ function addTransaction() {
                 class="p-2 rounded-md w-full m-2">
                 <span class="flex flex-row justify-between h-10 m-10 items-center p-5" v-if="card.category === 'earning'">
                 <div class="flex flex-row items-center gap-5">
-                    <div class="bg-green-400 rounded-md w-10 h-10"></div>
+                    <div class="flex bg-green-200 rounded-md w-10 h-10 justify-center">
+                        <img class="w-8" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/arrow-up-right-svgrepo-com.svg" alt="">
+                    </div>
                     <div class="flex flex-col m-0px text-container">
                         <p class="text-md sm:text-lg font-medium ">{{ card.description }}</p>
                         <p class="text-sm sm:text-md text-gray-500">{{ card.date }}</p>
@@ -55,8 +57,10 @@ function addTransaction() {
             </span>
             <span class="flex flex-row items-center justify-between h-10 m-10 p-5" v-if="card.category === 'expense'">
                 <div class="flex flex-row items-center gap-5">
-                    <div class="bg-red-400 rounded-md w-10 h-10"></div>
-                    <div class="flex flex-col m-0px text-container">
+                    <div class="flex bg-red-200 rounded-md w-10 h-10 justify-center">
+                        <img class="w-8" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/arrow-down-right-svgrepo-com.svg" alt="">
+                    </div>
+                    <div class="flex flex-col m-0 text-container">
                         <p class="text-md sm:text-lg font-medium">{{ card.description }}</p>
                         <p class="text-sm sm:text-md text-gray-500">{{ card.date }}</p>
                     </div>
@@ -64,10 +68,12 @@ function addTransaction() {
                 <p class="font-bold sm:text-lg text-red-600 ">{{ `- ${card.amount}€ ` }}</p>
             </span>
             <span class="flex flex-row items-center justify-between h-10 m-10 p-5" v-if="card.category === 'savings'">
-                <div class="flex flex-row items-center gap-5 b-4">
-                    <div class="bg-blue-400 rounded-md w-10 h-10"></div>
-                    <div class="flex flex-col m-0px text-container">
-                        <p class="text-md sm:text-lg font-medium"><br>{{ card.type }}</p>
+                <div class="flex flex-row items-center gap-5 h-10">
+                    <div class="flex bg-blue-400 rounded-md w-10 h-10 justify-center">
+                        <img class="w-6" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/target-svgrepo-com.svg" alt="">
+                    </div>
+                    <div class="flex flex-col m-0 text-container">
+                        <p class="text-md sm:text-lg font-medium">{{ card.type }}</p>
                         <p class="text-sm sm:text-md text-gray-500">{{ card.date }}</p>
                     </div>
                 </div>
@@ -75,7 +81,9 @@ function addTransaction() {
             </span>
             <span class="flex flex-row items-center justify-between h-10 m-10 p-5" v-if="card.category === 'refund-savings'">
                 <div class="flex flex-row items-center gap-5">
-                    <div class="bg-blue-400 rounded-md w-10 h-10"></div>
+                    <div class="flex bg-blue-400 rounded-md w-10 h-10 justify-center">
+                        <img class="w-6" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/target-svgrepo-com.svg" alt="">
+                    </div>
                     <div class="flex flex-col m-0px text-container">
                         <p class="text-md sm:text-lg font-medium">{{ card.type }}</p>
                         <p class="text-sm sm:text-md text-gray-500">{{ card.date }}</p>

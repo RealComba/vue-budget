@@ -1,11 +1,10 @@
 @import "tailwindcss";
 
-
-
-:root {
-  --xs: 350px;
+@theme {
+  --breakpoint-xs: 350px; /* Definisci il tuo breakpoint qui */
 }
 
-*{
-  margin: 0px;
+/* Questa è una regola CSS globale, non fa parte della configurazione del tema Tailwind */
+* {
+  margin: 0px; 
 }
