@@ -12,6 +12,7 @@ export const storeTransaction = defineStore ('transaction', () => {
     const maxAmount = ref([])
     const goalActive = ref()
     const category = ref()
+    const groupedLabel = ref([])
 
 
     let newId = 0
@@ -32,7 +33,7 @@ export const storeTransaction = defineStore ('transaction', () => {
         return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 
-    function newTsx(category, amount, type) {
+    function newTsx(category, amount, type, description) {
         if (isNaN(amount)) return
         if (category === 'expense' || category === 'savings') {
             expenses.value.push(amount)
@@ -47,6 +48,7 @@ export const storeTransaction = defineStore ('transaction', () => {
             category: category,
             amount: numberWithCommas(amount),
             type: type,
+            description: description,
             date: formatDate(Date.now())
         };
         transaction.value.push(newTransaction)
@@ -67,7 +69,7 @@ export const storeTransaction = defineStore ('transaction', () => {
         const transactionGoal = {
             id: newId++,
             category: 'savings',
-            amount: numberWithCommas(first),
+            amount: first,
             type: `${name}`,
             date: formatDate(Date.now())
         }
@@ -158,7 +160,7 @@ export const storeTransaction = defineStore ('transaction', () => {
 
     const totalSavings = computed (() => {
         return transaction.value.filter(t => t.category === 'savings')
-        .reduce((totale, t) => totale + cleanNumber(t.amount), 0)
+        .reduce((totale, t) => totale + t.amount, 0)
     })
 
     function closeForm(data) {
@@ -168,7 +170,6 @@ export const storeTransaction = defineStore ('transaction', () => {
     function closeGoalsForm(data) {
         showGoalsForm.value = data
     }
-
 
     watch (earnings.value, () => {
         console.log(earnings)
@@ -197,6 +198,7 @@ export const storeTransaction = defineStore ('transaction', () => {
         newAmount,
         modifyGoal,
         deleteGoal,
-        totalSavings
+        totalSavings,
+        groupedLabel,
     }
 })

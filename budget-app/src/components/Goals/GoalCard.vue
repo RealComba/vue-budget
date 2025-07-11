@@ -43,11 +43,13 @@ function deleteGoal(value, goalId) {
                         <p class="text-md text-gray-500">{{ `Mancano €${goal.maxAmount - goal.firstAmount}` }}</p>
                     </div>
                 </div>
-                <p class="font-bold text-xl">{{ getPercent(goal) }}%</p>
+                <p class="font-bold text-xl"
+                :class="(goal.firstAmount === goal.maxAmount) ? 'text-green-600' : 'bg-black' ">{{ getPercent(goal) }}%</p>
             </div>
             <div class="pt-6 p-4 w-9/10 sm:w-100">
                 <div class="rounded-full bg-gray-100 relative p-2 bg-black w-9/10 sm:w-100">
-                    <div class="rounded-full p-2 bg-black absolute top-0 left-0 rounded-r-sm"
+                    <div class="rounded-full p-2 absolute top-0 left-0 rounded-r-sm"
+                    :class="(goal.firstAmount === goal.maxAmount) ? 'bg-green-600' : 'bg-black' "
                         :style = "{ width: getPercent(goal) + '%' }">
                     </div> 
                 </div>
@@ -59,7 +61,8 @@ function deleteGoal(value, goalId) {
             <div class="flex flex-row pt-4 gap-2 p-2">
                 <button class="w-1/2 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" @click="setActiveGoal(goal.id)">+ Aggiungi</button>
                 <button class="w-1/3 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" @click="modifyGoal('ModifyGoals', goal.id)" >Md</button>
-                <button class="w-1/6 border-1 rounded-md border-gray-200 p-1 text-black font-semibold hover:bg-gray-100" @click="deleteGoal('deleteGoals', goal.id)">X</button>
+                <button class="w-1/6 border-1 rounded-md border-gray-200 p-1 text-black font-semibold hover:bg-gray-100" 
+                :class="(goal.firstAmount === goal.maxAmount) ? 'bg-red-600 text-white' : 'bg-white' "@click="deleteGoal('deleteGoals', goal.id)">X</button>
             </div>
         </div>
     </div>

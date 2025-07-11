@@ -2,12 +2,24 @@
 import { storeTransaction } from '../store/store';
 import Chart from '../components/Barcharts.vue';
 import Cake from '../components/Cake.vue';
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const store = storeTransaction()
 const show = ref()
 const router = useRouter()
+
+
+const higherAmount = computed(() => {
+    const amount = store.groupedLabel.map(g => g.value)
+    const nmax = amount.length > 0 ? Math.max(...amount) : 0
+    const name = store.groupedLabel.filter(g => g.value === nmax).map(g => g.label)
+    return {
+        nmax,
+        name,
+    }
+
+})  
 
 function active(param) {
     show.value = param
@@ -40,11 +52,15 @@ function active(param) {
                         <p class="text-sm text-blue-600 ">{{ `${Math.round(100 - (store.totFirstAmount/store.totMaxAmount) * 100 || 0)}% ancora da saldare` }}</p>
                     </div>
                 </div>
-                <div class="flex flex-row gap-2 items-center bg-gray-100 rounded-lg text-center justify-evenly w-100% p-2">
-                    <button @click="active('build')" class="active:bg-white p-2 rounded-md">Progresso</button>
-                    <button @click="active('exp')" class="active:bg-white rounded-md p-2">Spese</button>
-                    <button @click="active('goal')" class="active:bg-white rounded-md p-2">Obiettivi</button>
-                    <button @click="active('build')" class="active:bg-white rounded-md p-2">Flussi</button>
+                <div class="flex flex-row items-center bg-gray-100 rounded-lg text-center justify-evenly w-100% p-1">
+                    <button @click="active('build')" class="p-2 rounded-md"
+                    :class="show === 'build' ? 'bg-white' : 'bg-gray-100' ">Progresso</button>
+                    <button @click="active('exp')" class="active:bg-white rounded-md p-2"
+                    :class="show === 'exp' ? 'bg-white' : 'bg-gray-100'">Spese</button>
+                    <button @click="active('goal')" class="active:bg-white rounded-md p-2"
+                    :class="show === 'goal' ? 'bg-white' : 'bg-gray-100'">Obiettivi</button>
+                    <button @click="active('flux')" class="active:bg-white rounded-md p-2"
+                    :class="show === 'flux' ? 'bg-white' : 'bg-gray-100'">Flussi</button>
                 </div>
                 <div class="flex flex-col p-4 sm:p-10 border-1 border-gray-300 rounded-lg shadow w-full gap-4">
                     <div v-if="show === 'goal'"class="flex flex-row gap-2 items-center">
@@ -72,10 +88,23 @@ function active(param) {
                     </div>
                     <div class="rounded-full bg-gray-100 relative p-1.25 bg-black">
                         <div class="rounded-full p-1.25 bg-black absolute top-0 left-0 rounded-r-sm"
-                            :style = "{ width: Math.round((store.totFirstAmount/store.totMaxAmount) * 100) + '%' }">
+                            :class="(goal.firstAmount === goal.maxAmount) ? 'bg-green-600' : 'bg-black'"
+                            :style = "{ width: Math.round((goal.firstAmount/goal.maxAmount) * 100) + '%' }">
                         </div> 
                     </div>
                     <p class="text-gray-600">{{ `€${goal.firstAmount} / €${goal.maxAmount}` }}</p>
+                </div>
+                <div v-if="show === 'exp'" class="flex flex-row w-full justify-center gap-4">
+                    <div class="flex flex-col rounded-lg border-1 border-gray-300 p-5 gap-1 w-full items-center">
+                        <p class="font-extrabold text-red-500 text-2xl">€{{  store.expensesTotal }}</p>
+                        <p class="text-sm">Spese Totali</p>
+                        <p class="text-red-500 text-sm">-5% mese scorso</p>
+                    </div>
+                    <div class="flex flex-col rounded-lg border-1 border-gray-300 p-5 w-full items-center gap-1">
+                        <p class="text-orange-500 font-extrabold text-2xl">€{{ higherAmount.nmax }}</p>
+                        <p class="text-sm">Categoria Top</p>
+                        <p class="text-sm">{{ higherAmount.name.join() }}</p>
+                    </div>
                 </div>
             </div>
         </div>    

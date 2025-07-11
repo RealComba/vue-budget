@@ -3,14 +3,14 @@ import { storeTransaction } from "/src/store/store.js"
 import { computed } from "vue"
 
 const store = storeTransaction()
-const colors = ["bg-blue-500", "bg-green-500", "bg-purple-500"]
+const colors = ["bg-red-500", "bg-pink-500", "bg-purple-500", "bg-violet-500", "bg-indigo-500", "bg-blue-500", "bg-sky-500", "bg-cyan-500", "bg-teal-500", "bg-green-500", "bg-lime-500", "bg-yellow-500", "bg-amber-500", "bg-orange-500", "bg-rose-500", "bg-neutral-500", "bg-zinc-500", "bg-gray-500", "bg-slate-500", "bg-stone-500"]
 
 function getPercent(goal) {
     return Math.round((goal.firstAmount/goal.maxAmount) * 100)
 }
 
 const lastGoal = computed(() => {
-    return store.goals.slice(-3).reverse()
+    return store.goals.slice(-3)
 })
 
 </script>

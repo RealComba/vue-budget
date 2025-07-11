@@ -47,7 +47,7 @@ function addTransaction() {
                 <div class="flex flex-row items-center gap-5">
                     <div class="bg-green-400 rounded-md w-10 h-10"></div>
                     <div class="flex flex-col m-0px text-container">
-                        <p class="text-md sm:text-lg font-medium ">{{ card.type }}</p>
+                        <p class="text-md sm:text-lg font-medium ">{{ card.description }}</p>
                         <p class="text-sm sm:text-md text-gray-500">{{ card.date }}</p>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ function addTransaction() {
                 <div class="flex flex-row items-center gap-5">
                     <div class="bg-red-400 rounded-md w-10 h-10"></div>
                     <div class="flex flex-col m-0px text-container">
-                        <p class="text-md sm:text-lg font-medium">{{ card.type }}</p>
+                        <p class="text-md sm:text-lg font-medium">{{ card.description }}</p>
                         <p class="text-sm sm:text-md text-gray-500">{{ card.date }}</p>
                     </div>
                 </div>
@@ -67,7 +67,7 @@ function addTransaction() {
                 <div class="flex flex-row items-center gap-5 b-4">
                     <div class="bg-blue-400 rounded-md w-10 h-10"></div>
                     <div class="flex flex-col m-0px text-container">
-                        <p class="text-md sm:text-lg font-medium">Risparmi Obiettivo: <br>{{ card.type }}</p>
+                        <p class="text-md sm:text-lg font-medium"><br>{{ card.type }}</p>
                         <p class="text-sm sm:text-md text-gray-500">{{ card.date }}</p>
                     </div>
                 </div>

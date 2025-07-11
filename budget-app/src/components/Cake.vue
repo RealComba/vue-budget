@@ -8,19 +8,21 @@ const store = storeTransaction()
 const expenses = store.transaction.filter(t => t.category === 'expense')
 const typeList = ['alimentari', 'trasporti', 'intrattenimento', 'salute', 'sport', 'viaggi' , 'altro']
 
-const groupedLabel = []
+store.groupedLabel.length = 0;
+console.log(store.groupedLabel)
+console.log(store.groupedLabel.value)
 
 expenses.forEach((e) => {
     const amount = cleanAmount(e.amount)
     const type = typeList.includes(e.type) ? e.type : 'Altre spese'
-    const existing = groupedLabel.find(e => e.label === type)
+    const existing = store.groupedLabel.find(e => e.label === type)
 
     if(existing) {
         existing.value += amount
     } else {
-        groupedLabel.push({label: type, value: amount})
+        store.groupedLabel.push({label: type, value: amount})
     }
-    console.log(groupedLabel)
+    console.log(store.groupedLabel)
 })
 
 
@@ -32,9 +34,9 @@ const options = {
 }
 
 const data = {  
-labels: groupedLabel.map(item => item.label),
+labels: store.groupedLabel.map(item => item.label),
   datasets: [{
-    data: groupedLabel.map(item => item.value),
+    data: store.groupedLabel.map(item => item.value),
     borderWidth: 0,
     cutout: 100,
     backgroundColor: [
