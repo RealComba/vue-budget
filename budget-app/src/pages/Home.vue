@@ -5,29 +5,27 @@ import Recap from '/src/components/Recap.vue';
 import Cards from '/src/components/Cards.vue';
 import Buttons from '/src/components/Buttons.vue';
 import Total from '/src/components/Total.vue';
-import { ref } from 'vue'
+import DarkButton from '../components/DarkButton.vue';
 import { storeTransaction } from '../store/store';
 
 const store = storeTransaction()
 
-function darkMode(param) {
-  store.dark = !store.dark
-  console.log(store.dark)
-}
-
 </script>
 
 <template>
-    <button class="rounded-full bg-black text-white" @click="darkMode('active')">Dark</button>
+  <div :class="store.dark ? 'bg-neutral-800 text-white mt-0' : 'bg-white'">
+    <DarkButton></DarkButton>
     <Header></Header>
     <Total></Total>
     <Buttons></Buttons>
     <Recap></Recap>
     <Amount></Amount>
     <Cards></Cards>
+  </div>
 </template>
 
 <style scoped>
+
 *{
   margin-top: 10px;
   margin-bottom: 10px;
@@ -40,6 +38,10 @@ function darkMode(param) {
   justify-content: center;
   /* align-items: center; */
   height: 100%;
+}
+
+div {
+  margin: 0px;
 }
 
 @media (max-width: 395px) {

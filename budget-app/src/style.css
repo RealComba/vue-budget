@@ -1,10 +1,32 @@
 @import "tailwindcss";
 
-@theme {
-  --breakpoint-xs: 350px; /* Definisci il tuo breakpoint qui */
-}
+
 
 /* Questa è una regola CSS globale, non fa parte della configurazione del tema Tailwind */
 * {
   margin: 0px; 
+}
+
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+svg path {
+  transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+html {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+html.black {
+  background-color: rgb(40, 40, 40);
+  color: white;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
 }

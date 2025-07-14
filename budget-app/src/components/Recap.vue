@@ -17,7 +17,8 @@ const lastGoal = computed(() => {
 
 <template>
 <div class="flex justify-center">
-    <div class="flex flex-col border-1 rounded-lg border-gray-300 w-130 h-95">
+    <div class="flex flex-col border-1 rounded-lg border-gray-300 w-130 h-95"
+    :class="(store.dark) ? 'bg-neutral-700 border-none' : 'bg-white' ">
         <div class="flex flex-row justify-between pl-7 pr-7 pt-5 pb-3">
             <p class="font-bold text-xl">I Tuoi Obiettivi</p>
             <RouterLink to="/goals">Vedi Tutti</RouterLink>
@@ -36,7 +37,8 @@ const lastGoal = computed(() => {
             </div>
             <div class="pl-7 pr-7 pb-2">
                 <div class="rounded-full bg-gray-100 relative p-1.25 bg-black w-full">
-                    <div class="rounded-full p-1.25 bg-black absolute top-0 left-0 rounded-r-sm"
+                    <div class="rounded-full p-1.25 absolute top-0 left-0 rounded-r-sm"
+                    :class="(store.dark)? 'bg-green-400' : 'bg-black'"
                     :style = "{ width: getPercent(goal) + '%' }">
                     </div> 
                 </div>
