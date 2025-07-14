@@ -17,15 +17,18 @@ function addAmount (){
 
 <template>
      <div class="flex flex-row justify-center m-8 h-80">
-        <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-80 sm:w-90 gap-6 fixed">
+        <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-80 sm:w-90 gap-6 fixed"
+            :class="store.dark ? 'bg-neutral-700' : 'bg-white'">
             <div class="flex flex-col gap-2">
                 <div class="flex flex-row justify-between">
                     <label class="font-bold text-xl pb-2" for="amount">Importo da aggiungere a "{{ store.goalActive.name }}"</label>
                     <button @click="addAmount()" class="flex justify-end font-bold text-lg">X</button>
                 </div>
-                <input class="rounded-lg p-4 font-extrabold text-black border-1 border-gray-400 text-center text-gray-600 text-2xl" placeholder="0.00€" type="number" v-model="newAmount">
+                <input class="rounded-lg p-4 font-extrabold text-black border-1 border-gray-400 text-center text-gray-600 text-2xl" placeholder="0.00€" type="number" v-model="newAmount"         
+                :class="store.dark ? 'text-white border-none bg-neutral-600' : 'text-black'">
             </div>
-            <div class="flex flex-col bg-gray-200 rounded-md gap-3 p-2">
+            <div class="flex flex-col rounded-md gap-3 p-2"
+            :class="store.dark ? 'bg-neutral-600' : ' bg-gray-200'">
                 <div class="flex flex-row pl-3 pr-3 justify-between">
                     <p>Progresso Attuale:</p>
                     <p class="font-bold"> €{{ parseInt(store.goalActive.firstAmount) }} / €{{ parseInt(store.goalActive.maxAmount) }}</p> 

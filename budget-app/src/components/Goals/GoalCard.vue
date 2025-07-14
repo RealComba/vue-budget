@@ -33,36 +33,42 @@ function deleteGoal(value, goalId) {
 <template>
     <div v-for="(goal, idx) in store.goals" :key="goal.id">
         <div class="flex justify-center p-2">
-        <div class="border-1 rounded-md border-gray-300 w-120 sm:p-6">
+        <div class="border-1 rounded-md border-gray-300 w-120 sm:p-6"
+        :class="store.dark ? 'bg-neutral-700 border-none' : 'bg-white'">
             <div class="flex flex-row justify-between items-center p-4">
                 <div class="flex flex-row items-center gap-5">
                     <div class="rounded-full p-2 w-5 h-5"
                     :class="colors[idx % colors.length]"></div>
                     <div class="flex flex-col">
                         <p class="font-semibold text-lg">{{ goal.name }}</p>
-                        <p class="text-md text-gray-500">{{ `Mancano €${goal.maxAmount - goal.firstAmount}` }}</p>
+                        <p class="text-md"
+                        :class="store.dark ? 'text-gray-300' : 'text-gray-500'">{{ `Mancano €${goal.maxAmount - goal.firstAmount}` }}</p>
                     </div>
                 </div>
                 <p class="font-bold text-xl"
-                :class="(goal.firstAmount === goal.maxAmount) ? 'text-green-600' : 'bg-black' ">{{ getPercent(goal) }}%</p>
+                :class="(goal.firstAmount === goal.maxAmount) ? 'text-green-600' : 'text-black' , store.dark ? 'text-white' : 'text-black' ">{{ getPercent(goal) }}%</p>
             </div>
             <div class="pt-6 p-4 w-9/10 sm:w-100">
                 <div class="rounded-full bg-gray-100 relative p-2 bg-black w-9/10 sm:w-100">
                     <div class="rounded-full p-2 absolute top-0 left-0 rounded-r-sm"
-                    :class="(goal.firstAmount === goal.maxAmount) ? 'bg-green-600' : 'bg-black' "
+                    :class="(goal.firstAmount === goal.maxAmount) ? 'bg-green-600' : 'bg-black', store.dark ? 'bg-blue-600' : 'bg-black' "
                         :style = "{ width: getPercent(goal) + '%' }">
                     </div> 
                 </div>
             </div>
             <div class="flex flex-row justify-between w-8/10 pl-4 sm:w-100">
-                <p class="text-md xs:text-xl text-gray-500 ">{{ `€${goal.firstAmount}` }}</p>
-                <p class="text-md text-gray-500 ">{{ `€${goal.maxAmount}` }}</p>
+                <p class="text-md xs:text-xl"
+                :class="store.dark ? 'text-white' : 'text-gray-500'">{{ `€${goal.firstAmount}` }}</p>
+                <p class="text-md"
+                :class="store.dark ? 'text-white' : 'text-gray-500'">{{ `€${goal.maxAmount}` }}</p>
             </div>
             <div class="flex flex-row pt-4 gap-2 p-2">
-                <button class="w-1/2 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" @click="setActiveGoal(goal.id)">+ Aggiungi</button>
-                <button class="w-1/3 border-1 rounded-md border-gray-200 p-1 font-semibold hover:bg-gray-100" @click="modifyGoal('ModifyGoals', goal.id)" >Md</button>
-                <button class="w-1/6 border-1 rounded-md border-gray-200 p-1 text-black font-semibold hover:bg-gray-100" 
-                :class="(goal.firstAmount === goal.maxAmount) ? 'bg-red-600 text-white' : 'bg-white' "@click="deleteGoal('deleteGoals', goal.id)">X</button>
+                <button class="w-1/2 border-1 rounded-md border-gray-200 p-1 font-semibold" 
+                :class="store.dark ? 'border-none bg-neutral-800' : 'bg-white'"@click="setActiveGoal(goal.id)">+ Aggiungi</button>
+                <button class="w-1/3 border-1 rounded-md border-gray-200 p-1 font-semibold"
+                :class="store.dark ? 'border-none bg-neutral-800' : 'bg-white'" @click="modifyGoal('ModifyGoals', goal.id)" >Md</button>
+                <button class="w-1/6 border-1 rounded-md border-gray-200 p-1 font-semibold" 
+                :class="(goal.firstAmount === goal.maxAmount) ? 'bg-red-600 text-white' : '', store.dark ? 'border-none bg-neutral-800 text-white' : 'bg-white text-black' "@click="deleteGoal('deleteGoals', goal.id)">X</button>
             </div>
         </div>
     </div>

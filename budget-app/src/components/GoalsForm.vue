@@ -28,21 +28,22 @@ function closeGoal(event) {
 
 <template>
      <div class="flex flex-row justify-center m-8 h-105">
-        <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-80 gap-6">
+        <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-80 gap-6"
+        :class="store.dark ? 'bg-neutral-700' : 'bg-white'">
             <div class="flex flex-col gap-2">
                 <div class="flex flex-row justify-between pb-2">
                     <p class="font-bold text-2xl">Nuovo Obiettivo</p>
                     <button @click="closeGoal('close')" class="flex justify-end font-bold text-lg">X</button>
                 </div>
-                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="Nome obiettivo" type="text" v-model="name">
+                <input class="rounded-lg p-2 font-bold border-1 border-gray-400" placeholder="Nome obiettivo" type="text" v-model="name">
             </div>
             <div class="flex flex-col gap-2">
                 <label class="font-bold text-xl" for="categories">Importo di Partenza</label>
-                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="0.00€" type="number" name="categories" id="transaction" v-model.number="firstAmount">
+                <input class="rounded-lg p-2 font-bold border-1 border-gray-400" placeholder="0.00€" type="number" name="categories" id="transaction" v-model.number="firstAmount">
             </div>
             <div class="flex flex-col gap-2">
                 <label class="font-bold text-xl" for="type">Importo da Raggiungere</label>
-                <input class="rounded-lg p-2 font-bold text-black border-1 border-gray-400" placeholder="0.00€" type="number" id="transaction-type" v-model.number="maxAmount">
+                <input class="rounded-lg p-2 font-bold border-1 border-gray-400" placeholder="0.00€" type="number" id="transaction-type" v-model.number="maxAmount">
             </div>
             <button class="bg-black text-white p-2 rounded-lg font-bold" @click="newGoal()">Aggiungi obiettivo</button>
         </div>

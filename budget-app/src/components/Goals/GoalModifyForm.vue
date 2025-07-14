@@ -21,17 +21,20 @@ function edit() {
 </script>
 
 <template>
-     <div class="flex flex-row justify-center m-8 h-90 w-70 sm:h-90 sm:w-100">
-        <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-85 gap-6">
+     <div class="flex flex-row justify-center m-8 h-90 w-70 sm:h-90 sm:w-100 ">
+        <div class="flex flex-col bg-gray-100 p-4 rounded-lg w-85 gap-6" 
+        :class="store.dark ? 'bg-neutral-700' : 'bg-white'">
             <div class="flex flex-col gap-2">
                 <div class="flex flex-row justify-between pb-4">
                     <p class="font-bold text-xl">Modifica Obiettivo</p>
                     <button @click="close()" class="flex justify-end font-bold text-lg">X</button>
                 </div>
                 <label class="font-bold text-xl pb-2" for="goal">Nome Obiettivo</label>
-                <input class="rounded-lg p-2 font-semibold text-black border-1 border-gray-400 text-gray-600 text-rg" placeholder="" type="text" v-model="name">
+                <input class="rounded-lg p-2 font-semibold border-1 border-gray-400 text-gray-600 text-rg"
+                :class="store.dark ? 'text-white' : 'text-black' " placeholder="" type="text" v-model="name">
                 <label class="font-bold text-xl pt-2" for="goalName">Obiettivo (€)</label>
-                <input class="rounded-lg p-2 font-semibold text-black border-1 border-gray-400 text-gray-600 text-rg" type="number" id="" v-model="max">
+                <input class="rounded-lg p-2 font-semibold border-1 border-gray-400 text-gray-600 text-rg"
+                :class="store.dark ? 'text-white' : 'text-black' " type="number" id="" v-model="max">
             </div>
             <button class="bg-black text-white p-2 rounded-lg font-bold" @click="edit()">Salva</button>
         </div>

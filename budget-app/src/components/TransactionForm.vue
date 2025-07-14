@@ -11,7 +11,9 @@ const description = ref()
 
 const newTransaction = () => {
     if (!category.value || !transaction.value || !tsxType.value || !description.value) {
-        return console.log('error')
+        return console.log('campi vuoti')
+    } if (transaction.value < 1) {
+        return console.log('importo transazione non valido')
     }
     store.newTsx (category.value, transaction.value, tsxType.value, description.value)
     transaction.value = null
@@ -38,7 +40,7 @@ function closeAdd(event) {
                     <button @click="closeAdd('close')" class="flex justify-end font-bold text-lg">X</button>
                 </div>
                 <input class="text-center rounded-lg p-2 h-12 font-extrabold border-1 border-gray-400 placeholder:font-extrabold h-18 text-3xl"
-                :class="(store.dark) ? 'bg-neutral-600 border-none text-white' : 'bg-gray-100 text-black'" placeholder="0.00€" type="number" v-model.number="transaction">
+                :class="(store.dark) ? 'bg-neutral-600 border-none text-white' : 'bg-gray-100 text-black'" placeholder="0.00€" type="tel" v-model.number="transaction">
             </div>
             <!-- <div class="flex flex-col gap-2">
                 <label class="font-bold text-xl" for="type">Descrizione Transazione</label>

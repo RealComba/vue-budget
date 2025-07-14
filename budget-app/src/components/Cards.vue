@@ -14,9 +14,9 @@ const lastTransaction = computed (() => {
 
 <template>
 <div class="flex justify-center">
-    <div class="flex flex-col border-1 rounded-lg border-gray-300 w-130 h-95"
+    <div class="flex flex-col border-1 rounded-lg border-gray-300 w-130"
     :class="(store.dark) ? 'bg-neutral-700 border-none' : ''">
-        <div class="flex flex-row justify-between p-7">
+        <div class="flex flex-row justify-between p-7 items-center">
             <p class="font-bold text-xl">Transazioni Recenti</p>
             <RouterLink to="/transaction">Vedi Tutte</RouterLink>
         </div>

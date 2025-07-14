@@ -13,7 +13,7 @@ export const storeTransaction = defineStore ('transaction', () => {
     const goalActive = ref()
     const category = ref()
     const groupedLabel = ref([])
-    const dark = ref(true)
+    const dark = ref(false)
 
 
     let newId = 0

@@ -13,7 +13,8 @@ function darkMode() {
 
 <template>
     <div class="switch">
-        <input type="checkbox" class="switch__input" id="Switch" @click="darkMode()">
+        <input type="checkbox" class="switch__input" id="Switch" @click="darkMode()"
+        :checked="!store.dark">
         <label class="switch__label" for="Switch">
             <span class="switch__indicator"></span>
             <span class="switch__decoration"></span>
@@ -29,7 +30,7 @@ body {
 
 .switch {
     display: inline-block;
-    position: absolute;
+    position: relative;
 }
 
 .switch__input {
@@ -104,7 +105,7 @@ body {
     height: 5px;
     background-color: #FFFFFF;
     border-radius: 9999px;
-    animation: twinkle 0.8s infinite -0.6s;
+    animation: twinkle 2s infinite -0.6s;
 
     &::before,
     &::after {
@@ -121,13 +122,13 @@ body {
         top: -20px;
         left: 10px;
         opacity: 1;
-        animation: twinkle 0.6s infinite;
+        animation: twinkle 2s infinite;
     }
 
     &::after {
         top: -7px;
         left: 30px;
-        animation: twinkle 0.6s infinite -0.2s;
+        animation: twinkle 2s infinite -0.2s;
     }
 }
 

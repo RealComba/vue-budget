@@ -36,31 +36,52 @@ function active(param) {
                         <img class="w-8" src="https://www.svgrepo.com/show/510041/left-arrow.svg" @click="router.push({ path:'/'})" alt="">
                         <div class="flex flex-col gap-2">
                             <p class="font-bold text-2xl sm:text-4xl">Analytics</p>
-                            <p class="text-gray-600">Le tue statistiche finanziarie</p>
+                            <p :class="store.dark ? 'text-white' : 'text-gray-600'">Le tue statistiche finanziarie</p>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-row justify-center items-center w-full gap-4">
-                    <div class="flex flex-col border-1 border-gray-300 text-center p-5 w-full h-full rounded-lg gap-1">
+                    <div class="flex flex-col border-1 border-gray-300 text-center p-5 w-full h-full rounded-lg gap-1"
+                    :class="store.dark ? 'bg-neutral-700 border-none' : 'bg-white'">
                         <p class="font-extrabold text-green-600 text-3xl">€{{ store.totFirstAmount }}</p>
-                        <p class="text-gray-600 text-sm">Risparmi Totali</p>
+                        <p class="text-sm"
+                        :class="store.dark ? 'text-white' : 'text-gray-600'">Risparmi Totali</p>
                         <p class="text-green-600 text-sm">{{ ` ${Math.round((store.totalSavings/store.balance) * 100)}% del saldo totale ` }}</p>
                     </div>
-                    <div class="flex flex-col border-1 border-gray-300 text-center p-5 w-full h-full rounded-lg gap-1">
-                        <p class="text-blue-600 font-extrabold text-3xl">€{{ (store.totMaxAmount - store.totFirstAmount) }}</p>
-                        <p class="text-sm text-gray-600  ">Importo da saldare</p>
-                        <p class="text-sm text-blue-600 ">{{ `${Math.round(100 - (store.totFirstAmount/store.totMaxAmount) * 100 || 0)}% ancora da saldare` }}</p>
+                    <div class="flex flex-col border-1 border-gray-300 text-center p-5 w-full h-full rounded-lg gap-1"
+                    :class="store.dark ? 'bg-neutral-700 border-none' : 'bg-white'">
+                        <p class="text-blue-500 font-extrabold text-3xl">€{{ (store.totMaxAmount - store.totFirstAmount) }}</p>
+                        <p class="text-sm"
+                        :class="store.dark ? 'text-white' : 'text-gray-600'">Importo da saldare</p>
+                        <p class="text-sm text-blue-500 ">{{ `${Math.round(100 - (store.totFirstAmount/store.totMaxAmount) * 100 || 0)}% ancora da saldare` }}</p>
                     </div>
                 </div>
-                <div class="flex flex-row items-center bg-gray-100 rounded-lg text-center justify-evenly w-100% p-1">
+                <div class="flex flex-row items-center rounded-lg text-center justify-evenly w-100% p-1"
+                :class="store.dark ? 'bg-neutral-700' : 'bg-gray-100'">
                     <!-- <button @click="active('build')" class="p-2 rounded-md"
                     :class="show === 'build' ? 'bg-white' : 'bg-gray-100' ">Progresso</button> -->
-                    <button @click="active('exp')" class="active:bg-white rounded-md p-2"
-                    :class="show === 'exp' ? 'bg-white' : 'bg-gray-100'">Spese</button>
-                    <button @click="active('goal')" class="active:bg-white rounded-md p-2"
-                    :class="show === 'goal' ? 'bg-white' : 'bg-gray-100'">Obiettivi</button>
-                    <!-- <button @click="active('flux')" class="active:bg-white rounded-md p-2"
-                    :class="show === 'flux' ? 'bg-white' : 'bg-gray-100'">Flussi</button> -->
+                    <button
+                @click="active('exp')"
+                class="rounded-md p-2"
+                :class="{
+                    'bg-white text-black': show === 'exp' && !store.dark,
+                    'bg-gray-100 text-black': show !== 'exp' && !store.dark,
+                    'bg-neutral-500': show === 'exp' && store.dark,
+                    'bg-neutral-700': show !== 'exp' && store.dark
+                }"
+                >
+                Spese
+                </button>
+                    <button @click="active('goal')" class="rounded-md p-2"
+                :class="{
+                    'bg-white text-black': show === 'goal' && !store.dark,
+                    'bg-gray-100 text-black': show !== 'goal' && !store.dark,
+                    'bg-neutral-500': show === 'goal' && store.dark,
+                    'bg-neutral-700': show !== 'goal' && store.dark
+                }"
+                >
+                Obiettivi
+                </button>
                 </div>
                 <div class="flex flex-col p-4 sm:p-10 border-1 border-gray-300 rounded-lg shadow w-full gap-4">
                     <div v-if="show === 'goal'"class="flex flex-row gap-2 items-center">
