@@ -1,18 +1,23 @@
 <script setup>
-import { storeTransaction } from '../store/store';
+import { userStore } from '../store/userStore';
 import DarkButton from '../components/DarkButton.vue'
 import { useRouter } from 'vue-router'
+import recap from '../components/Split/SplitRecap.vue'
+import SplitGroup from '../components/Split/SplitGroup.vue';
 
-const store = storeTransaction()
+const store = userStore()
 const router = useRouter()
 
+function openGroup() {  
+    store.form(true)
+}
 </script>
 
 
 
 <template>
 <DarkButton></DarkButton>
-<div class="flex flex-col justify-center gap-5 p-2">
+<div class="flex flex-col justify-center gap-8 p-2">
     <div class="flex justify-center">
         <div class="flex flex-row w-120 justify-between items-center pt-10">
             <svg  class="w-8 rounded-lg "
@@ -26,8 +31,17 @@ const router = useRouter()
                 <p :class="store.dark ? 'text-white' : 'text-gray-600'">Dividi le Spese con gli amici</p>
             </div>
             <button class=" w-10 h-10 text-center text-2xl bg-black text-white rounded-md"
-            :class="store.dark ? 'bg-blue-800 text-white' : 'bg-black text-white'" @click="addGoal">+</button>
+            :class="store.dark ? 'bg-blue-800 text-white' : 'bg-black text-white'" @click="openGroup">+</button>
         </div>
     </div>
+    <recap></recap>
+     <transition name="fade">
+            <div v-if="store.formActive === true " class="fixed inset-0 z-50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-black/60 "></div>
+                <div class="relative z-10">
+                    <SplitGroup></SplitGroup> 
+                </div>
+            </div>
+    </transition>
 </div>
 </template>
