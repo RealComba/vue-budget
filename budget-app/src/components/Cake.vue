@@ -2,6 +2,8 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
 import { storeTransaction } from '../store/store';
+import { computed } from 'vue'
+
 
 const cleanAmount = x => Number(x.toString().replace(/,/g, '')) || 0
 const store = storeTransaction()
@@ -28,10 +30,25 @@ expenses.forEach((e) => {
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-const options = {
-   responsive: true,
-   aspectRatio: 1.33
+const options = computed(() =>{
+
+  return {
+    responsive: true,
+    aspectRatio: 1.33,
+
+    plugins: {
+    legend: {
+      labels: {
+        color: '#ffffff' // colore del testo della legenda (bianco, ad esempio)
+      }
+    },
+    tooltip: {
+      bodyColor: '#ffffff', // testo principale del tooltip
+      titleColor: '#cccccc' // titolo del tooltip
+    }
+  }
 }
+})
 
 const data = {  
 labels: store.groupedLabel.map(item => item.label),

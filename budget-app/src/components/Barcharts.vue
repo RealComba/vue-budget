@@ -17,7 +17,6 @@ import {
 import { Bar } from 'vue-chartjs'
 
 
-
 function getPercent(firstAmount, maxAmount) {
     return Math.round((firstAmount/maxAmount) * 100)
 }
@@ -31,7 +30,7 @@ const data = computed(() => ({
   datasets: [
     {
       label: 'Progresso %',
-      backgroundColor: '#f87979',
+      backgroundColor: '#ffffff',
       data: store.goals.map(goal => getPercent(goal.firstAmount, goal.maxAmount)),
       backgroundColor: [
           "rgb(239, 68, 68)",    // red-500
@@ -59,13 +58,31 @@ const data = computed(() => ({
   ]
 }))
 
-const options = {
-  scales: {
+const options = computed(() => {
+  const textColors = store.dark ? '#fff' : '#000'
+  return {
+    scales: {
+      x: {
+        ticks: {
+          color: textColors
+        }
+      },
     y: {
       min: 0,
       max: 100,
-    }
+      ticks: {
+          color: textColors
+      }
+    },
+  },
+  plugins: {
+    legend: {
+      labels: {
+        color: textColors 
+      }
+    },
   }
-}
+  }
+})
 
 </script>

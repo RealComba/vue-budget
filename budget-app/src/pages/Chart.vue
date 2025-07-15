@@ -4,6 +4,7 @@ import Chart from '../components/Barcharts.vue';
 import Cake from '../components/Cake.vue';
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import DarkButton from '../components/DarkButton.vue'
 
 const store = storeTransaction()
 const show = ref()
@@ -28,6 +29,7 @@ function active(param) {
 
 
 <template>
+    <DarkButton></DarkButton>
     <div class="flex justify-center">
         <div class="flex flex-col items-center max-w-140 w-full px-4">
             <div class="container flex flex-col justify-center p-2 pl-4 gap-4">
@@ -57,7 +59,7 @@ function active(param) {
                     </div>
                 </div>
                 <div class="flex flex-row items-center rounded-lg text-center justify-evenly w-100% p-1"
-                :class="store.dark ? 'bg-neutral-700' : 'bg-gray-100'">
+                :class="store.dark ? 'bg-neutral-700' : 'bg-gray-100 border-1 border-gray-300'">
                     <!-- <button @click="active('build')" class="p-2 rounded-md"
                     :class="show === 'build' ? 'bg-white' : 'bg-gray-100' ">Progresso</button> -->
                     <button
@@ -83,7 +85,8 @@ function active(param) {
                 Obiettivi
                 </button>
                 </div>
-                <div class="flex flex-col p-4 sm:p-10 border-1 border-gray-300 rounded-lg shadow w-full gap-4">
+                <div class="flex flex-col p-4 sm:p-10 border-1 border-gray-300 rounded-lg shadow w-full gap-4" 
+                :class="store.dark ? 'bg-neutral-700 border-none' : 'bg-white'">
                     <div v-if="show === 'goal'"class="flex flex-row gap-2 items-center">
                         <svg width="20px" height="20px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C5.79086 4 4 5.79086 4 8C4 10.2091 5.79086 12 8 12C10.2091 12 12 10.2091 12 8C12 5.79086 10.2091 4 8 4ZM6 8C6 6.89543 6.89543 6 8 6C9.10457 6 10 6.89543 10 8C10 9.10457 9.10457 10 8 10C6.89543 10 6 9.10457 6 8Z" fill="#000000"/>
@@ -107,7 +110,8 @@ function active(param) {
                         <p class="font-bold text-xl">In Costruzione :)</p>
                     </div>
                 </div>
-                <div v-if="show === 'goal' "v-for="goal in store.goals" :key="goal.id" class="flex flex-col rounded-lg border-1 border-gray-300 p-6 gap-3">
+                <div v-if="show === 'goal' "v-for="goal in store.goals" :key="goal.id" class="flex flex-col rounded-lg border-1 border-gray-300 p-6 gap-3"
+                :class="store.dark ? 'bg-neutral-700 border-none' : 'bg-white'">
                     <div class="flex flex-row justify-between">
                         <p class="font-bold text-xl">{{ goal.name }}</p>
                         <p class="font-bold text-xl">{{ `${Math.round((goal.firstAmount/goal.maxAmount) * 100)}%` }}</p>
@@ -118,15 +122,17 @@ function active(param) {
                             :style = "{ width: Math.round((goal.firstAmount/goal.maxAmount) * 100) + '%' }">
                         </div> 
                     </div>
-                    <p class="text-gray-600">{{ `€${goal.firstAmount} / €${goal.maxAmount}` }}</p>
+                    <p :class="store.dark ? 'text-white' : 'text-gray-600'">{{ `€${goal.firstAmount} / €${goal.maxAmount}` }}</p>
                 </div>
                 <div v-if="show === 'exp'" class="flex flex-row w-full justify-center gap-4">
-                    <div class="flex flex-col rounded-lg border-1 border-gray-300 p-5 gap-1 w-full items-center">
+                    <div class="flex flex-col rounded-lg border-1 border-gray-300 p-5 gap-1 w-full items-center"
+                    :class="store.dark ? 'bg-neutral-700 border-none' : 'bg-white'">
                         <p class="font-extrabold text-red-500 text-2xl">€{{  store.expensesTotal }}</p>
                         <p class="text-sm">Spese Totali</p>
                         <p class="text-red-500 text-sm text-center">-5% mese scorso</p>
                     </div>
-                    <div class="flex flex-col rounded-lg border-1 border-gray-300 p-5 w-full items-center gap-1">
+                    <div class="flex flex-col rounded-lg border-1 border-gray-300 p-5 w-full items-center gap-1"
+                    :class="store.dark ? 'bg-neutral-700 border-none' : 'bg-white'">
                         <p class="text-orange-500 font-extrabold text-2xl">€{{ higherAmount.nmax }}</p>
                         <p class="text-sm">Categoria Top</p>
                         <p class="text-sm">{{ higherAmount.name.join() }}</p>
