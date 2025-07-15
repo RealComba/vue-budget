@@ -47,7 +47,7 @@ export const storeTransaction = defineStore ('transaction', () => {
         const newTransaction = {
             id: newId++,
             category: category,
-            amount: numberWithCommas(amount),
+            amount: amount,
             type: type,
             description: description,
             date: formatDate(Date.now())

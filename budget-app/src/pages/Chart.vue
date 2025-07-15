@@ -5,9 +5,10 @@ import Cake from '../components/Cake.vue';
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import DarkButton from '../components/DarkButton.vue'
+import Graph from '../components/Graph.vue'
 
 const store = storeTransaction()
-const show = ref()
+const show = ref('graph')
 const router = useRouter()
 
 
@@ -89,6 +90,16 @@ function active(param) {
                 >
                 Obiettivi
                 </button>
+                <button @click="active('graph')" class="rounded-md p-2"
+                :class="{
+                    'bg-white text-black': show === 'graph' && !store.dark,
+                    'bg-gray-100 text-black': show !== 'graph' && !store.dark,
+                    'bg-neutral-500': show === 'graph' && store.dark,
+                    'bg-neutral-700': show !== 'graph' && store.dark
+                }"
+                >
+                Movimenti
+                </button>
                 </div>
                 <div class="flex flex-col p-4 sm:p-10 border-1 border-gray-300 rounded-lg shadow w-full gap-4" 
                 :class="store.dark ? 'bg-neutral-700 border-none' : 'bg-white'">
@@ -104,11 +115,18 @@ function active(param) {
                         <p class="font-bold text-xl">Spese per Categoria</p>
                     </div>
                     <div v-if="show === 'goal'">
-                        <Chart/>
+                        <div class="position-relative min-w-90">
+                            <Chart></Chart>
+                        </div>
                     </div>
                     <div v-else-if="show === 'exp'">
                         <div class="position-relative min-w-90">
                             <Cake></Cake>
+                        </div>
+                    </div>
+                    <div v-else-if="show === 'graph'">
+                        <div class="position-relative min-w-90 min-h-70">
+                            <Graph></Graph>
                         </div>
                     </div>
                     <div class="flex flex-row justify-center" v-else>

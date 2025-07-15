@@ -52,12 +52,12 @@ const options = computed(() =>{
     plugins: {
     legend: {
       labels: {
-        color: '#ffffff' // colore del testo della legenda (bianco, ad esempio)
+        color: '#ffffff' 
       }
     },
     tooltip: {
-      bodyColor: '#ffffff', // testo principale del tooltip
-      titleColor: '#cccccc' // titolo del tooltip
+      bodyColor: '#ffffff', 
+      titleColor: '#cccccc' 
     }
   }
 }
