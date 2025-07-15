@@ -38,7 +38,7 @@ const lastGoal = computed(() => {
             <div class="pl-7 pr-7 pb-6">
                 <div class="rounded-full bg-gray-100 relative p-1.25 bg-black w-full">
                     <div class="rounded-full p-1.25 absolute top-0 left-0 rounded-r-sm"
-                    :class="(store.dark)? 'bg-green-400' : 'bg-black'"
+                    :class="(store.dark)? 'bg-blue-400' : 'bg-black'"
                     :style = "{ width: getPercent(goal) + '%' }">
                     </div> 
                 </div>

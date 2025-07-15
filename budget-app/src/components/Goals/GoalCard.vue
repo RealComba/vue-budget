@@ -51,7 +51,7 @@ function deleteGoal(value, goalId) {
             <div class="pt-6 p-4 w-9/10 sm:w-100">
                 <div class="rounded-full bg-gray-100 relative p-2 bg-black w-9/10 sm:w-100">
                     <div class="rounded-full p-2 absolute top-0 left-0 rounded-r-sm"
-                    :class="(goal.firstAmount === goal.maxAmount) ? 'bg-green-600' : 'bg-black', store.dark ? 'bg-blue-600' : 'bg-black' "
+                    :class="(goal.firstAmount === goal.maxAmount) ? 'bg-green-600' : 'bg-black', store.dark ? 'bg-blue-400' : 'bg-black' "
                         :style = "{ width: getPercent(goal) + '%' }">
                     </div> 
                 </div>

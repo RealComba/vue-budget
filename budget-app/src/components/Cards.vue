@@ -20,10 +20,10 @@ const lastTransaction = computed (() => {
             <p class="font-bold text-xl">Transazioni Recenti</p>
             <RouterLink to="/transaction">Vedi Tutte</RouterLink>
         </div>
-        <div class="flex flex-col m-5 gap-5">
+        <div class="flex flex-col m-5">
             <div v-for="card in lastTransaction "
             :key="card.id"
-            class="p-2 rounded-md m-2">
+            class="p-2 rounded-md m-2 pb-5">
             <span class="flex flex-row justify-between h-10 m-10 items-center p-5" v-if="card.category === 'earning'">
                 <div class="flex flex-row items-center gap-5">
                     <div class="flex bg-green-200 rounded-md w-10 h-10 justify-center">
@@ -78,7 +78,7 @@ const lastTransaction = computed (() => {
                     </div>
                 </div>
                 <p class="font-bold sm:text-lg"
-                :class="(store.dark) ? 'text-green-400' : 'text-green   -600'">{{ ` ${Math.abs(card.amount)}€ ` }}</p>
+                :class="(store.dark) ? 'text-green-400' : 'text-green-600'">{{ ` ${Math.abs(card.amount)}€ ` }}</p>
             </span>
             </div>
         </div>

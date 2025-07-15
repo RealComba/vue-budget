@@ -8,7 +8,8 @@ import { computed } from 'vue'
 const cleanAmount = x => Number(x.toString().replace(/,/g, '')) || 0
 const store = storeTransaction()
 const expenses = store.transaction.filter(t => t.category === 'expense')
-const typeList = ['alimentari', 'trasporti', 'intrattenimento', 'salute', 'sport', 'viaggi' , 'altro']
+const savings = store.transaction.filter(t => t.category === 'savings')
+const typeList = ['alimentari', 'trasporti', 'intrattenimento', 'salute', 'sport', 'viaggi', 'altro']
 
 store.groupedLabel.length = 0;
 console.log(store.groupedLabel)
@@ -23,6 +24,18 @@ expenses.forEach((e) => {
         existing.value += amount
     } else {
         store.groupedLabel.push({label: type, value: amount})
+    }
+    console.log(store.groupedLabel)
+})
+
+savings.forEach((t) => {
+  const amount = cleanAmount(t.amount)
+  const existing = store.groupedLabel.find(t => t.label === 'savings')
+
+    if(existing) {
+        existing.value += amount
+    } else {
+        store.groupedLabel.push({label: 'risparmi', value: amount})
     }
     console.log(store.groupedLabel)
 })
@@ -64,6 +77,7 @@ labels: store.groupedLabel.map(item => item.label),
       "rgb(59, 130, 246)",   // blue-500
       "rgb(168, 85, 247)",   // purple-500
        "rgb(6, 182, 212)",    // cyan-500
+       "oklch(64.5% 0.246 16.439)" 
     ],
     hoverOffset: 4
   }],

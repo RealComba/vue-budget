@@ -13,6 +13,10 @@ function addAmount (){
     console.log(store.earningsTotal)
 }
 
+function closeForm() {
+    store.closeForm(false)
+}
+
 </script>
 
 <template>
@@ -22,7 +26,7 @@ function addAmount (){
             <div class="flex flex-col gap-2">
                 <div class="flex flex-row justify-between">
                     <label class="font-bold text-xl pb-2" for="amount">Importo da aggiungere a "{{ store.goalActive.name }}"</label>
-                    <button @click="addAmount()" class="flex justify-end font-bold text-lg">X</button>
+                    <button @click="closeForm()" class="flex justify-end font-bold text-lg">X</button>
                 </div>
                 <input class="rounded-lg p-4 font-extrabold text-black border-1 border-gray-400 text-center text-gray-600 text-2xl" placeholder="0.00€" type="number" v-model="newAmount"         
                 :class="store.dark ? 'text-white border-none bg-neutral-600' : 'text-black'">
