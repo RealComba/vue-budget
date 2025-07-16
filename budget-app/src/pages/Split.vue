@@ -4,6 +4,7 @@ import DarkButton from '../components/DarkButton.vue'
 import { useRouter } from 'vue-router'
 import recap from '../components/Split/SplitRecap.vue'
 import GroupForm from '../components/Split/GroupForm.vue';
+import GroupCard from '../components/Split/GroupCard.vue';
 
 const store = userStore()
 const router = useRouter()
@@ -35,6 +36,7 @@ function openGroup() {
         </div>
     </div>
     <recap></recap>
+    <GroupCard></GroupCard>
      <transition name="fade">
             <div v-if="store.formActive === true " class="fixed inset-0 z-50 flex items-center justify-center">
                 <div class="absolute inset-0 bg-black/60 "></div>

@@ -12,18 +12,23 @@ function form (data) {
     formActive.value = data
 }
 
-function newGroup (name, desc, members) {
+function newGroup(name, desc, groupMembers) {
+  const selectedMembers = members.value.filter(m =>
+    groupMembers.includes(m.name)
+  )
 
-    const newGroup = {
-        id: id++,
-        name:name,
-        desc:desc,
-        members:members,
-    };
+  const newGroup = {
+    id: id++,
+    name: name,
+    desc: desc,
+    members: selectedMembers,
+    amount: 0,
+  }
 
-    groupData.value.push(newGroup)
-    console.log(groupData.value)
+  groupData.value.push(newGroup)
+  console.log(groupData.value)
 }
+
 
     return {
         members,

@@ -14,7 +14,7 @@ function close() {
 }
 
 function data () {
-  userstore.newGroup(name, desc, members)
+  userstore.newGroup(name.value, desc.value, members.value)
   userstore.form(false)
 }
 
@@ -35,7 +35,7 @@ function data () {
     
         <textarea class="rounded-lg p-2 font-semibold border-1 border-gray-400 text-gray-600 text-rg"
         :class="store.dark ? 'text-white' : 'text-black' " placeholder="descrizione" id="" v-model="desc"></textarea>
-        
+
           <div class="flex flex-col gap-5">
             <p class="font-bold">Seleziona membri</p>
             <div v-for="member in userstore.members" :key="member.name" >
