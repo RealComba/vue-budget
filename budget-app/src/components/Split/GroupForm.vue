@@ -30,10 +30,10 @@ function data () {
           <p class="font-bold text-xl">Nuovo Gruppo</p>
           <button @click="close()" class="flex justify-end font-bold text-lg">X</button>
         </div>
-        <input class="rounded-lg p-2 font-semibold border-1 border-gray-400 text-gray-600 text-rg"
+        <input class="rounded-lg p-2 border-1 border-gray-400 text-gray-600 text-rg"
         :class="store.dark ? 'text-white' : 'text-black' " placeholder="Nome Gruppo (*es vacanza Roma)" required type="text" v-model="name">
     
-        <textarea class="rounded-lg p-2 font-semibold border-1 border-gray-400 text-gray-600 text-rg"
+        <textarea class="rounded-lg p-2 border-1 border-gray-400 text-gray-600 text-rg"
         :class="store.dark ? 'text-white' : 'text-black' " placeholder="descrizione" id="" v-model="desc"></textarea>
 
           <div class="flex flex-col gap-5">

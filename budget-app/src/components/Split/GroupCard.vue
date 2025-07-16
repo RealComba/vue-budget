@@ -1,6 +1,7 @@
 <script setup>
 import { storeTransaction } from "/src/store/store.js"
 import { userStore } from "../../store/userStore"
+import GroupFormTsx from "./GroupFormTsx.vue"
 
 
 const colors = ["bg-red-500", "bg-pink-500", "bg-purple-500", "bg-violet-500", "bg-indigo-500", "bg-blue-500", "bg-sky-500", "bg-cyan-500", "bg-teal-500", "bg-green-500", "bg-lime-500", "bg-yellow-500", "bg-amber-500", "bg-orange-500", "bg-rose-500", "bg-neutral-500", "bg-zinc-500", "bg-gray-500", "bg-slate-500", "bg-stone-500"]
@@ -8,7 +9,9 @@ const colors = ["bg-red-500", "bg-pink-500", "bg-purple-500", "bg-violet-500", "
 const darkStore = storeTransaction()
 const store = userStore()
 
-
+function newTransaction() {
+    darkStore.closeForm('active')
+}
 
 </script>
 
@@ -43,7 +46,7 @@ const store = userStore()
                     </div> 
                     <div class="flex flex-row gap-3">
                         <button class="w-2/3 border-1 rounded-md border-gray-200 p-1 font-semibold" 
-                        :class="store.dark ? 'border-none bg-neutral-800' : 'bg-white'"@click="setActiveGoal(goal.id)">+ Aggiungi</button>
+                        :class="store.dark ? 'border-none bg-neutral-800' : 'bg-white'"@click="newTransaction">+ Aggiungi</button>
                         <button class="w-1/5 border-1 rounded-md border-gray-200 p-1 font-semibold"
                         :class="store.dark ? 'border-none bg-neutral-800' : 'bg-white'" @click="modifyGoal('ModifyGoals', goal.id)" >Md</button>
                         <button class="w-1/6 border-1 rounded-md border-gray-200 p-1 font-semibold" 
@@ -53,10 +56,10 @@ const store = userStore()
             </div>
         </div>
         <transition name="fade">
-            <div v-if="store.showForm === 'active' " class="fixed inset-0 z-50 flex items-center justify-center">
+            <div v-if="darkStore.showForm === 'active' " class="fixed inset-0 z-50 flex items-center justify-center">
                 <div class="absolute inset-0 bg-black/60 "></div>
                     <div class="relative z-10">
-                        <GoalForm></GoalForm>
+                        <GroupFormTsx></GroupFormTsx>
                     </div>
                 </div>
         </transition>
