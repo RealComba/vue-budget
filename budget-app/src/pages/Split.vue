@@ -3,7 +3,7 @@ import { userStore } from '../store/userStore';
 import DarkButton from '../components/DarkButton.vue'
 import { useRouter } from 'vue-router'
 import recap from '../components/Split/SplitRecap.vue'
-import SplitGroup from '../components/Split/SplitGroup.vue';
+import GroupForm from '../components/Split/GroupForm.vue';
 
 const store = userStore()
 const router = useRouter()
@@ -39,7 +39,7 @@ function openGroup() {
             <div v-if="store.formActive === true " class="fixed inset-0 z-50 flex items-center justify-center">
                 <div class="absolute inset-0 bg-black/60 "></div>
                 <div class="relative z-10">
-                    <SplitGroup></SplitGroup> 
+                    <GroupForm></GroupForm>
                 </div>
             </div>
     </transition>
