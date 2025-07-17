@@ -10,8 +10,8 @@ const store = userStore()
     <div class="flex flex-row bg-green-600 rounded-lg w-120 h-40 items-center justify-between">
         <div class="flex flex-col justify-center pl-5 sm:pl-10">
             <p class="text-green-200 text-lg">Ti devono in totale</p>
-            <p v-if="!store.totFirstAmount" class="text-white text-4xl font-bold pb-5" >200€</p>
-            <p v-else class="text-white text-4xl font-bold">200</p>
+            <p v-if="!store.totFirstAmount" class="text-white text-4xl font-bold pb-5" >{{ store.myAmount }}€</p>
+            <p v-else class="text-white text-4xl font-bold"></p>
             <p class="text-green-200 text-md ">2 / 2</p>
         </div>
         <div class="pr-5 pl-5 sm:p-10">

@@ -3,7 +3,7 @@ import { ref, computed, watch } from 'vue'
 
 export const userStore = defineStore ('user', () => {
 
-const groupData = ref([{ id: 0, name: 'Gruppo Vip', desc: 'Segami', members: [{ name:'Lorenzo Giacopuzzi', initials:'LG' }], amount: 0 }])   
+const groupData = ref([])   
 const formActive = ref()
 const activeGroup = ref()
 const members = ref([{ name:'Antonio Florea', initials:'AF' }, { name:'Lorenzo Giacopuzzi', initials:'LG' }, { name:'Tommaso Chieregato', initials:'TC' }, { name:'Mattia Corolaita', initials:'MT' },])
@@ -59,11 +59,19 @@ function groupActivated(data) {
   console.log(activeGroup.value)
 }
 
+const myAmount = computed(() => {
+  const myCredit = groupTransaction.value.filter(t => t.buyer === 'Tu').map(t => Number(t.amount) - (Number(t.amount) / (t.members?.length || 1))).reduce((sum, val) => sum + val, 0)
+  const myDebit = groupTransaction.value.filter(t => t.buyer !== 'Tu' && t.members?.includes('Tu')).map(t => Number(t.amount) / (t.members?.length || 1)).reduce((sum, val) => sum + val, 0)
+
+  return (myCredit - myDebit)
+})
+
 
     return {
         members,
         groupData,
         formActive,
+        myAmount,
         form,
         newGroup,
         newTransaction,
