@@ -1,7 +1,7 @@
 <script setup>
 import { userStore } from '/src/store/userStore.js'
 import { storeTransaction } from '/src/store/store';
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const darkStore = storeTransaction()
 const store = userStore()
@@ -11,6 +11,10 @@ const category = ref()
 const description = ref()
 const activePay = ref()
 const input = ref([])
+
+const activeGroupData = computed(() =>
+  store.groupData.find(group => group.id === store.activeGroup)
+)
 
 function close() {
     darkStore.closeForm(false)
@@ -32,9 +36,9 @@ function active(name) {
 <template>
     <div class="flex flex-col w-90 max-h-180 overflow-y-auto">
         <div class="flex bg-gray-100 rounded-lg w-full p-6">
-            <div v-for="group in store.groupData" class="flex flex-col w-full gap-2">
+            <div v-if="activeGroupData" class="flex flex-col w-full gap-2">
                 <div class="flex flex-row justify-between w-full">
-                    <p class="font-bold text-lg">Nuova Spesa - {{ group.name }}</p>
+                    <p class="font-bold text-lg">Nuova Spesa - {{ activeGroupData.name }}</p>
                     <button @click="close">X</button>
                 </div>
                 <div class="flex flex-col justify-center gap-4">
@@ -54,13 +58,13 @@ function active(name) {
                 </div>
                 <textarea class="border-1 border-gray-300 rounded-md p-4 text-black h-20" name="" id="" placeholder="Descrizione (opzionale)" v-model="description"></textarea>
                 <label class="pt-5 text-lg font-semibold" for="chi">Chi ha pagato?</label>
-                <div v-for="member in group.members" :key="group.id">
+                <div v-for="member in activeGroupData.members">
                     <button @click="active(member.name)" class="font-bold border-gray-300 border-1 p-2 rounded-lg w-full text-start ease-in-out"
                     :class="activePay === member.name ? 'bg-neutral-800 text-white border-none transition-all' : 'bg-white'">{{ member.name }}</button>
                 </div>
                 <div class="flex flex-col gap-3">
                     <p class="pt-5 text-lg font-semibold">Dividi Tra</p>
-                    <div v-for="member in group.members" :key="group.id" class="flex flex-row justify-between">
+                    <div v-for="member in activeGroupData.members" class="flex flex-row justify-between">
                         <p>{{ member.name }}</p>
                         <label class="switch">
                         <input type="checkbox" :value="member.name" v-model="input">
@@ -69,7 +73,7 @@ function active(name) {
                     </div>
                     <div class="flex flex-row gap-2 pt-5">
                         <button class="p-3 margin-1 margin-gray-300 w-full border-1 border-gray-300 rounded-lg font-bold" @click="close">Annulla</button>
-                        <button class="bg-black text-white rounded-lg p-3 w-full font-bold" @click="data(group.id)">Aggiungi Spesa</button>
+                        <button class="bg-black text-white rounded-lg p-3 w-full font-bold" @click="data(activeGroupData.id)">Aggiungi Spesa</button>
                     </div>
                 </div>
             </div>

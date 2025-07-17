@@ -3,8 +3,9 @@ import { ref, computed, watch } from 'vue'
 
 export const userStore = defineStore ('user', () => {
 
-const groupData = ref([])   
+const groupData = ref([{ id: 0, name: 'Gruppo Vip', desc: 'Segami', members: [{ name:'Lorenzo Giacopuzzi', initials:'LG' }], amount: 0 }])   
 const formActive = ref()
+const activeGroup = ref()
 const members = ref([{ name:'Antonio Florea', initials:'AF' }, { name:'Lorenzo Giacopuzzi', initials:'LG' }, { name:'Tommaso Chieregato', initials:'TC' }, { name:'Mattia Corolaita', initials:'MT' },])
 const groupTransaction = ref([])
 let id = 0;
@@ -31,6 +32,7 @@ function newGroup(name, desc, groupMembers) {
 }
 
 function newTransaction(groupid, name, amount, category, description, buyer, memberSplit) {
+
   const transaction = {
     groupId: groupid,
     id: id++,
@@ -43,7 +45,18 @@ function newTransaction(groupid, name, amount, category, description, buyer, mem
   }
 
   groupTransaction.value.push(transaction)
-  console.log(groupTransaction.value)
+  const group = groupData.value.find(g => g.id === groupid)
+
+  console.log('groupData:', groupData.value)
+  if (group) {
+    group.amount += amount
+    console.log(group.amount)
+  }
+}
+
+function groupActivated(data) {
+  activeGroup.value = data
+  console.log(activeGroup.value)
 }
 
 
@@ -54,5 +67,7 @@ function newTransaction(groupid, name, amount, category, description, buyer, mem
         form,
         newGroup,
         newTransaction,
+        groupActivated,
+        activeGroup,
     }
 })

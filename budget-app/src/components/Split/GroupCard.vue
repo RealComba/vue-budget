@@ -9,7 +9,9 @@ const colors = ["bg-red-500", "bg-pink-500", "bg-purple-500", "bg-violet-500", "
 const darkStore = storeTransaction()
 const store = userStore()
 
-function newTransaction() {
+function newTransaction(groupId) {
+    store.groupActivated(groupId)
+    console.log(groupId)
     darkStore.closeForm('active')
 }
 
@@ -46,7 +48,7 @@ function newTransaction() {
                     </div> 
                     <div class="flex flex-row gap-3">
                         <button class="w-2/3 border-1 rounded-md border-gray-200 p-1 font-semibold" 
-                        :class="store.dark ? 'border-none bg-neutral-800' : 'bg-white'"@click="newTransaction">+ Aggiungi</button>
+                        :class="store.dark ? 'border-none bg-neutral-800' : 'bg-white'"@click="newTransaction(group.id)">+ Aggiungi</button>
                         <button class="w-1/5 border-1 rounded-md border-gray-200 p-1 font-semibold"
                         :class="store.dark ? 'border-none bg-neutral-800' : 'bg-white'" @click="modifyGoal('ModifyGoals', goal.id)" >Md</button>
                         <button class="w-1/6 border-1 rounded-md border-gray-200 p-1 font-semibold" 
