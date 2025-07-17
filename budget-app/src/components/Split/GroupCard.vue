@@ -67,7 +67,7 @@ function newTransaction() {
             <div v-if="store.showGoalsForm === 'ModifyGoals' " class="fixed inset-0 z-50 flex items-center justify-center">
                 <div class="absolute inset-0 bg-black/60 "></div>
                     <div class="relative z-10">
-                        <GoalModifyForm></GoalModifyForm>   
+                        <!-- <GoalModifyForm></GoalModifyForm>    -->
                     </div>
                 </div>
         </transition>
@@ -75,7 +75,7 @@ function newTransaction() {
             <div v-if="store.showGoalsForm === 'deleteGoals' " class="fixed inset-0 z-50 flex items-center justify-center">
                 <div class="absolute inset-0 bg-black/60 "></div>
                     <div class="relative z-10">
-                        <GoalDelete></GoalDelete>   
+                        <!-- <GoalDelete></GoalDelete>    -->
                     </div>
                 </div>
         </transition>

@@ -5,24 +5,26 @@ import { ref } from 'vue'
 
 const darkStore = storeTransaction()
 const store = userStore()
-const name=ref()
-const desc = ref()
-const members = ref([])
+const name = ref()
+const amount = ref()
+const category = ref()
+const description = ref()
 const activePay = ref()
 const input = ref([])
 
 function close() {
-    store.form(false)
+    darkStore.closeForm(false)
 }
 
-function data () {
-  store.newGroup(name.value, desc.value, members.value)
-  store.form(false)
+function data (id) {
+  store.newTransaction(id, name.value, amount.value, category.value, description.value, activePay.value, input.value)
+  darkStore.closeForm(false)
 }
 
 function active(name) {
     activePay.value = name
     console.log(activePay.value)   
+    console.log(input.value)
 }
 
 </script>
@@ -33,13 +35,13 @@ function active(name) {
             <div v-for="group in store.groupData" class="flex flex-col w-full gap-2">
                 <div class="flex flex-row justify-between w-full">
                     <p class="font-bold text-lg">Nuova Spesa - {{ group.name }}</p>
-                    <button>X</button>
+                    <button @click="close">X</button>
                 </div>
                 <div class="flex flex-col justify-center gap-4">
-                    <input class="border-1 border-gray-300 rounded-md h-10 p-4" type="text" name="" id="" placeholder="Titolo spesa (*es cena ristorante)">
-                    <input class="border-1 border-gray-300 rounded-md h-10 p-4" type="number" name="" id="" placeholder="Importo €">
+                    <input class="border-1 border-gray-300 rounded-md h-10 p-4" type="text" name="" id="" placeholder="Titolo spesa (*es cena ristorante)" v-model="name">
+                    <input class="border-1 border-gray-300 rounded-md h-10 p-4" type="number" name="" id="" placeholder="Importo €" v-model="amount">
                     <select class="p-2 rounded-lg h-12 text-base border-1 border-gray-300 placeholder:font-semibold"
-                    :class="(store.dark) ? 'bg-neutral-600 border-none text-white' : 'bg-gray-100 text-neutral-500'" name="categories" id="transaction" >
+                    :class="(store.dark) ? 'bg-neutral-600 border-none text-white' : 'bg-gray-100 text-neutral-500'" name="categories" id="transaction" v-model="category">
                         <option value="type" selected disabled>Seleziona Categoria</option>
                         <option value="alimentari">Alimentari 🍴</option>
                         <option value="trasporti">Trasporti 🚌</option>
@@ -50,11 +52,11 @@ function active(name) {
                         <option value="altro">Altre Spese 💶</option>
                     </select>
                 </div>
-                <textarea class="border-1 border-gray-300 rounded-md p-4 text-black h-20" name="" id="" placeholder="Descrizione (opzionale)"></textarea>
+                <textarea class="border-1 border-gray-300 rounded-md p-4 text-black h-20" name="" id="" placeholder="Descrizione (opzionale)" v-model="description"></textarea>
                 <label class="pt-5 text-lg font-semibold" for="chi">Chi ha pagato?</label>
                 <div v-for="member in group.members" :key="group.id">
-                    <button @click="active(member.name)" class="font-bold border-gray-300 border-1 p-2 rounded-lg w-full text-start"
-                    :class="activePay === member.name ? 'bg-neutral-800 text-white border-none' : 'bg-white'">{{ member.name }}</button>
+                    <button @click="active(member.name)" class="font-bold border-gray-300 border-1 p-2 rounded-lg w-full text-start ease-in-out"
+                    :class="activePay === member.name ? 'bg-neutral-800 text-white border-none transition-all' : 'bg-white'">{{ member.name }}</button>
                 </div>
                 <div class="flex flex-col gap-3">
                     <p class="pt-5 text-lg font-semibold">Dividi Tra</p>
@@ -67,7 +69,7 @@ function active(name) {
                     </div>
                     <div class="flex flex-row gap-2 pt-5">
                         <button class="p-3 margin-1 margin-gray-300 w-full border-1 border-gray-300 rounded-lg font-bold" @click="close">Annulla</button>
-                        <button class="bg-black text-white rounded-lg p-3 w-full font-bold" @click="data()">Aggiungi Spesa</button>
+                        <button class="bg-black text-white rounded-lg p-3 w-full font-bold" @click="data(group.id)">Aggiungi Spesa</button>
                     </div>
                 </div>
             </div>

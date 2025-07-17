@@ -6,6 +6,7 @@ export const userStore = defineStore ('user', () => {
 const groupData = ref([])   
 const formActive = ref()
 const members = ref([{ name:'Antonio Florea', initials:'AF' }, { name:'Lorenzo Giacopuzzi', initials:'LG' }, { name:'Tommaso Chieregato', initials:'TC' }, { name:'Mattia Corolaita', initials:'MT' },])
+const groupTransaction = ref([])
 let id = 0;
 
 function form (data) {
@@ -29,6 +30,22 @@ function newGroup(name, desc, groupMembers) {
   console.log(groupData.value)
 }
 
+function newTransaction(groupid, name, amount, category, description, buyer, memberSplit) {
+  const transaction = {
+    groupId: groupid,
+    id: id++,
+    name: name,
+    amount: amount,
+    category: category,
+    description: description,
+    buyer: buyer,
+    members: memberSplit,
+  }
+
+  groupTransaction.value.push(transaction)
+  console.log(groupTransaction.value)
+}
+
 
     return {
         members,
@@ -36,5 +53,6 @@ function newGroup(name, desc, groupMembers) {
         formActive,
         form,
         newGroup,
+        newTransaction,
     }
 })
