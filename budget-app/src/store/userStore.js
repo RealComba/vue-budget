@@ -6,10 +6,28 @@ export const userStore = defineStore ('user', () => {
 const groupData = ref([])   
 const formActive = ref()
 const activeGroup = ref()
-const members = ref([{ name:'Antonio Florea', initials:'AF' }, { name:'Lorenzo Giacopuzzi', initials:'LG' }, { name:'Tommaso Chieregato', initials:'TC' }, { name:'Mattia Corolaita', initials:'MT' },])
+const memberNames = [
+  'Antonio Florea',
+  'Lorenzo Giacopuzzi',
+  'Tommaso Chieregato',
+  'Mattia Corolaita',
+];
+
+const members = ref(
+  memberNames.map(name => ({
+    name,
+    initials: getInitials(name)
+  }))
+);
 const groupTransaction = ref([])
 let id = 0;
 
+function getInitials(name) {
+  return name
+    .split(' ')
+    .map(word => word[0]?.toUpperCase() || '')
+    .join('');
+}
 
 function formatDate(date) {
     // const now = new Date()
@@ -42,6 +60,11 @@ function newGroup(name, desc, groupMembers) {
 }
 
 function newTransaction(groupid, name, amount, category, description, buyer, memberSplit) {
+  const initials = memberSplit.map(memberName => {
+    if (memberName === 'Tu') return 'TU';
+    const member = members.value.find(m => m.name === memberName);
+    return member ? member.initials : '';
+  });
 
   const transaction = {
     groupId: groupid,
@@ -53,6 +76,7 @@ function newTransaction(groupid, name, amount, category, description, buyer, mem
     description: description,
     buyer: buyer,
     members: memberSplit,
+    initials: initials
   }
 
   groupTransaction.value.push(transaction)

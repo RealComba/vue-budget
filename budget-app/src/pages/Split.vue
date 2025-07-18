@@ -12,7 +12,7 @@ import { storeTransaction } from '../store/store';
 const store = userStore()
 const darkStore = storeTransaction()
 const router = useRouter()
-const show = ref()
+const show = ref('group')
 
 function openGroup() {  
     store.form(true)
