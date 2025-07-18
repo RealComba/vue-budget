@@ -5,13 +5,23 @@ import { useRouter } from 'vue-router'
 import recap from '../components/Split/SplitRecap.vue'
 import GroupForm from '../components/Split/GroupForm.vue';
 import GroupCard from '../components/Split/GroupCard.vue';
+import GroupTsx from '../components/Split/GroupTsx.vue'
+import { ref } from 'vue'
+import { storeTransaction } from '../store/store';
 
 const store = userStore()
+const darkStore = storeTransaction()
 const router = useRouter()
+const show = ref()
 
 function openGroup() {  
     store.form(true)
 }
+
+function active(param) {
+    show.value = param
+}
+
 </script>
 
 
@@ -36,7 +46,39 @@ function openGroup() {
         </div>
     </div>
     <recap></recap>
-    <GroupCard></GroupCard>
+    <div class="flex justify-center">
+        <div class="flex flex-row items-center rounded-lg text-center justify-evenly w-120 p-1"
+            :class="darkStore.dark ? 'bg-neutral-700' : 'bg-gray-100 border-1 border-gray-300'">
+            <button
+                @click="active('group')"
+                class="rounded-md p-2"
+                :class="{
+                    'bg-white text-black': show === 'group' && !darkStore.dark,
+                    'bg-gray-100 text-black': show !== 'group' && !darkStore.dark,
+                    'bg-neutral-500': show === 'group' && darkStore.dark,
+                    'bg-neutral-700': show !== 'group' && darkStore.dark
+                }"
+                >
+                Gruppi
+            </button>
+            <button @click="active('transaction')" class="rounded-md p-2"
+                :class="{
+                    'bg-white text-black': show === 'transaction' && !darkStore.dark,
+                    'bg-gray-100 text-black': show !== 'transaction' && !darkStore.dark,
+                    'bg-neutral-500': show === 'transaction' && darkStore.dark,
+                    'bg-neutral-700': show !== 'transaction' && darkStore.dark
+                }"
+                >
+                Spese
+            </button>
+        </div>
+    </div>
+    <div v-if="show === 'group'">
+        <GroupCard></GroupCard>
+    </div>
+    <div v-else="show === 'transaction'">
+        <GroupTsx></GroupTsx>
+    </div>
      <transition name="fade">
             <div v-if="store.formActive === true " class="fixed inset-0 z-50 flex items-center justify-center">
                 <div class="absolute inset-0 bg-black/60 "></div>

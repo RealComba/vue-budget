@@ -10,6 +10,9 @@ const members = ref([{ name:'Antonio Florea', initials:'AF' }, { name:'Lorenzo G
 const groupTransaction = ref([])
 let id = 0;
 
+const cleanNumber = x => Number(x.replace(/,/g, ''))
+
+
 function form (data) {
     formActive.value = data
 }

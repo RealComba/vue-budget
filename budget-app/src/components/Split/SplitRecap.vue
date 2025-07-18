@@ -7,12 +7,17 @@ const store = userStore()
 
 <template>
 <div class="flex justify-center">
-    <div class="flex flex-row bg-green-600 rounded-lg w-120 h-40 items-center justify-between">
+    <div class="flex flex-row rounded-lg w-120 h-40 items-center justify-between" 
+    :class="store.myAmount > -1 ? 'bg-green-600' : 'bg-red-600'">
         <div class="flex flex-col justify-center pl-5 sm:pl-10">
-            <p class="text-green-200 text-lg">Ti devono in totale</p>
-            <p v-if="!store.totFirstAmount" class="text-white text-4xl font-bold pb-5" >{{ store.myAmount }}€</p>
-            <p v-else class="text-white text-4xl font-bold"></p>
-            <p class="text-green-200 text-md ">2 / 2</p>
+            <p class="text-lg" 
+            :class="store.myAmount > -1 ? 'text-green-200' : 'text-red-200'">
+                <span v-if="store.myAmount > -1"> Ti devono in Totale </span>
+                <span v-else> Devi dare in Totale</span>
+            </p>
+            <p v-if="store.totFirstAmount" class="text-white text-4xl font-bold pb-5" >{{ Math.round(store.myAmount) }}€</p>
+            <p v-else class="text-white text-4xl font-bold">{{ Math.round(store.myAmount) }}€</p>
+            <p class="text-md" :class="store.myAmount > -1 ? 'text-green-200' : 'text-red-200'">2 / 2</p>
         </div>
         <div class="pr-5 pl-5 sm:p-10">
             <svg width="50px" height="50px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

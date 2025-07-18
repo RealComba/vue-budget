@@ -23,6 +23,7 @@ function close() {
 function data (id) {
   store.newTransaction(id, name.value, amount.value, category.value, description.value, activePay.value, input.value)
   darkStore.closeForm(false)
+  console.log(store.groupTransaction)
 }
 
 function active(name) {
