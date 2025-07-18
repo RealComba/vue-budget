@@ -45,7 +45,7 @@ function active(name) {
                 <div class="flex flex-col justify-center gap-4">
                     <input class="border-1 border-gray-300 rounded-md h-10 p-4" type="text" name="" id="" placeholder="Titolo spesa (*es cena ristorante)" v-model="name">
                     <input class="border-1 border-gray-300 rounded-md h-10 p-4" type="number" name="" id="" placeholder="Importo €" v-model="amount">
-                    <select class="p-2 rounded-lg h-12 text-base border-1 border-gray-300 placeholder:font-semibold"
+                    <!-- <select class="p-2 rounded-lg h-12 text-base border-1 border-gray-300 placeholder:font-semibold"
                     :class="(store.dark) ? 'bg-neutral-600 border-none text-white' : 'bg-gray-100 text-neutral-500'" name="categories" id="transaction" v-model="category">
                         <option value="type" selected disabled>Seleziona Categoria</option>
                         <option value="alimentari">Alimentari 🍴</option>
@@ -55,7 +55,7 @@ function active(name) {
                         <option value="sport">Sport ⚽️</option>
                         <option value="viaggi">Viaggi ✈️</option>
                         <option value="altro">Altre Spese 💶</option>
-                    </select>
+                    </select> -->
                 </div>
                 <textarea class="border-1 border-gray-300 rounded-md p-4 text-black h-20" name="" id="" placeholder="Descrizione (opzionale)" v-model="description"></textarea>
                 <label class="pt-5 text-lg font-semibold" for="chi">Chi ha pagato?</label>

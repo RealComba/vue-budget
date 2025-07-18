@@ -80,5 +80,6 @@ const myAmount = computed(() => {
         newTransaction,
         groupActivated,
         activeGroup,
+        groupTransaction,
     }
 })
