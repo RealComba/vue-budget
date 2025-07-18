@@ -29,7 +29,7 @@ function newTransaction(groupId) {
                                 <div class="flex flex-col">
                                     <p class="font-semibold text-lg">{{ transaction.name }}</p>
                                     <p class="text-base"
-                                    :class="store.dark ? 'text-gray-300' : 'text-gray-500'">{{ store.groupData.find(g => g.id === transaction.groupId).name }}</p>
+                                    :class="store.dark ? 'text-gray-300' : 'text-gray-500'">{{ store.groupData.find(g => g.id === transaction.groupId).name }} - {{ transaction.date }}</p>
                                 </div>
                             </div>
                             <div class="flex flex-col text-center">
@@ -44,6 +44,7 @@ function newTransaction(groupId) {
                             <p class="bg-gray-100 rounded-2xl p-1.5 text-center text-sm font-semibold w-25">in sospeso</p>
                         </div>
                         <p class="text-gray-500">{{ transaction.description }}</p>
+                        <p class="text-gray-500">{{ transaction.members }}</p>
                     </div> 
                 </div>
             </div>
