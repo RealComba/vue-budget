@@ -1,16 +1,13 @@
 <script setup>
 import { storeTransaction } from "/src/store/store.js"
 import { userStore } from "../../store/userStore"
-import GroupFormTsx from "./GroupFormTsx.vue"
 import { computed } from 'vue'
 
 const darkStore = storeTransaction()
 const store = userStore()
 
-function newTransaction(groupId) {
-    store.groupActivated(groupId)
-    console.log(groupId)
-    darkStore.closeForm('active')
+function payId(id) {
+    store.pay(id)
 }
 
 
@@ -28,13 +25,13 @@ function newTransaction(groupId) {
                                 <div class="bg-blue-200 rounded-lg w-10 h-10"></div>
                                 <div class="flex flex-col">
                                     <p class="font-semibold text-lg">{{ transaction.name }}</p>
-                                    <p class="text-base"
+                                    <p class="text-base w-65"
                                     :class="store.dark ? 'text-gray-300' : 'text-gray-500'">{{ store.groupData.find(g => g.id === transaction.groupId).name }} - {{ transaction.date }}</p>
                                 </div>
                             </div>
                             <div class="flex flex-col text-center">
                                 <p class="font-bold text-2xl">€{{ transaction.amount }}</p>
-                                <p class="text-md text-gray-500">{{ Math.round(transaction.amount/transaction.members.length) }}.00€ a testa</p>
+                                <p class="text-md text-gray-500">{{ Math.round(transaction.amount/transaction.members.length) }}€ a testa</p>
                             </div>
                         </div>
                         <div class="flex flex-row gap-2 pt-3 justify-between">
@@ -48,7 +45,7 @@ function newTransaction(groupId) {
                             <div class="flex flex-row pt-2 gap-1">
                                 <p v-for="initial in transaction.initials" class="p-1 rounded-full text-gray-600 bg-gray-100 w-8 h-8 text-center">{{ initial }}</p>
                             </div>
-                            <button v-if="transaction.buyer !== 'Tu'" class="flex flex-row p-2 border-gray-200 rounded-lg border-1 w-20 sm:w-25 justify-evenly"><img class="w-4"src="https://www.svgrepo.com/show/218150/confirm.svg" alt="">Salda</button>
+                            <button v-if="transaction.buyer !== 'Tu'" class="flex flex-row p-2 border-gray-200 rounded-lg border-1 w-20 sm:w-25 justify-evenly" @click="payId(transaction.id)"><img class="w-4"src="https://www.svgrepo.com/show/218150/confirm.svg" alt="">Salda</button>
                         </div>
                     </div> 
                 </div>

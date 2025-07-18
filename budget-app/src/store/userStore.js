@@ -98,8 +98,19 @@ const myAmount = computed(() => {
   const myCredit = groupTransaction.value.filter(t => t.buyer === 'Tu').map(t => Number(t.amount) - (Number(t.amount) / (t.members?.length || 1))).reduce((sum, val) => sum + val, 0)
   const myDebit = groupTransaction.value.filter(t => t.buyer !== 'Tu' && t.members?.includes('Tu')).map(t => Number(t.amount) / (t.members?.length || 1)).reduce((sum, val) => sum + val, 0)
 
-  return (myCredit - myDebit)
+  return {
+    total: myCredit - myDebit,
+    myCredit: myCredit,
+    myDebit: myDebit,
+  }
 })
+
+function pay(id) {
+  const transaction = groupTransaction.value.find(t => t.id === id)
+  myAmount.value.total += transaction.amount - (transaction.amount / transaction.members.length)
+  console.log(myAmount.value.myCredit)
+  console.log(transaction.amount)
+}
 
 
     return {
@@ -107,6 +118,7 @@ const myAmount = computed(() => {
         groupData,
         formActive,
         myAmount,
+        pay,
         form,
         newGroup,
         newTransaction,
