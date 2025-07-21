@@ -16,7 +16,7 @@ const memberNames = [
 const members = ref(
   memberNames.map(name => ({
     name,
-    initials: getInitials(name)
+    initials: getInitials(name),
   }))
 );
 const groupTransaction = ref([])
@@ -45,7 +45,7 @@ function form (data) {
 function newGroup(name, desc, groupMembers) {
   const selectedMembers = members.value.filter(m =>
     groupMembers.includes(m.name))
-    selectedMembers.push({name: 'Tu', initials: 'TU'})
+    selectedMembers.push({name: 'Tu', initials: 'TU', id: id++})
 
   const newGroup = {
     id: id++,
@@ -76,7 +76,8 @@ function newTransaction(groupid, name, amount, category, description, buyer, mem
     description: description,
     buyer: buyer,
     members: memberSplit,
-    initials: initials
+    initials: initials,
+    paid: buyer === 'Tu' ? true : false,
   }
 
   groupTransaction.value.push(transaction)
@@ -96,7 +97,7 @@ function groupActivated(data) {
 
 const myAmount = computed(() => {
   const myCredit = groupTransaction.value.filter(t => t.buyer === 'Tu').map(t => Number(t.amount) - (Number(t.amount) / (t.members?.length || 1))).reduce((sum, val) => sum + val, 0)
-  const myDebit = groupTransaction.value.filter(t => t.buyer !== 'Tu' && t.members?.includes('Tu')).map(t => Number(t.amount) / (t.members?.length || 1)).reduce((sum, val) => sum + val, 0)
+  const myDebit = groupTransaction.value.filter(t => t.buyer !== 'Tu' && t.members?.includes('Tu') && t.paid !== true).map(t => Number(t.amount) / (t.members?.length || 1)).reduce((sum, val) => sum + val, 0)
 
   return {
     total: myCredit - myDebit,
@@ -107,9 +108,10 @@ const myAmount = computed(() => {
 
 function pay(id) {
   const transaction = groupTransaction.value.find(t => t.id === id)
-  myAmount.value.total += transaction.amount - (transaction.amount / transaction.members.length)
-  console.log(myAmount.value.myCredit)
-  console.log(transaction.amount)
+  if (transaction) {
+    transaction.paid = true
+    console.log(transaction)
+  }
 }
 
 

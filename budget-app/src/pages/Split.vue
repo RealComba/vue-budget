@@ -8,6 +8,7 @@ import GroupCard from '../components/Split/GroupCard.vue';
 import GroupTsx from '../components/Split/GroupTsx.vue'
 import { ref } from 'vue'
 import { storeTransaction } from '../store/store';
+import GroupFriend from '../components/Split/GroupFriend.vue';
 
 const store = userStore()
 const darkStore = storeTransaction()
@@ -71,13 +72,26 @@ function active(param) {
                 >
                 Spese
             </button>
+            <button @click="active('friend')" class="rounded-md p-2"
+                :class="{
+                    'bg-white text-black': show === 'friend' && !darkStore.dark,
+                    'bg-gray-100 text-black': show !== 'friend' && !darkStore.dark,
+                    'bg-neutral-500': show === 'friend' && darkStore.dark,
+                    'bg-neutral-700': show !== 'friend' && darkStore.dark
+                }"
+                >
+                Amici
+            </button>
         </div>
     </div>
     <div v-if="show === 'group'">
         <GroupCard></GroupCard>
     </div>
-    <div v-else="show === 'transaction'">
+    <div v-if="show === 'transaction'">
         <GroupTsx></GroupTsx>
+    </div>
+    <div v-if="show === 'friend'">
+        <GroupFriend></GroupFriend>
     </div>
      <transition name="fade">
             <div v-if="store.formActive === true " class="fixed inset-0 z-50 flex items-center justify-center">

@@ -15,8 +15,8 @@ const store = userStore()
                 <span v-if="store.myAmount.total > -1"> Ti devono in Totale </span>
                 <span v-else> Devi dare in Totale</span>
             </p>
-            <p v-if="store.totFirstAmount" class="text-white text-4xl font-bold pb-5" >{{ Math.round(store.myAmount.total) }}€</p>
-            <p v-else class="text-white text-4xl font-bold">{{ Math.round(store.myAmount.total) }}€</p>
+            <p v-if="store.totFirstAmount" class="text-white text-4xl font-bold pb-5" >{{ (store.myAmount.total).toFixed(2) }}€</p>
+            <p v-else class="text-white text-4xl font-bold">{{ (store.myAmount.total).toFixed(2) }}€</p>
             <p class="text-rg pt-5" :class="store.myAmount.total > -1 ? 'text-green-200' : 'text-red-200'">{{ store.groupData.length }} gruppi attivi</p>
         </div>
         <div class="flex flex-col items-end gap-9 p-6">
