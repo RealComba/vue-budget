@@ -14,6 +14,9 @@ function close() {
 }
 
 function data () {
+  if (members.value < 1) {
+    return
+  }
   userstore.newGroup(name.value, desc.value, members.value)
   userstore.form(false)
 }

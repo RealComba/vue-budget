@@ -18,10 +18,10 @@ function remove(id) {
 </script>
 
 <template>
-    <div class="flex justify-center flex-col p-2 items-center">
+    <div class="flex justify-center flex-col items-center">
         <div class="flex flex-col gap-4 rounded-md border-gray-300 w-120 sm:p-2 ">
             <div class="flex flex-row justify-between items-center">
-                <p>I Tuoi Amici</p>
+                <p class="font-bold text-xl">I Tuoi Amici</p>
                 <button class="p-2 w-25 h-10 bg-black rounded-lg text-white font-semibold" @click="form()">Aggiungi +</button>
             </div>
             <div v-for="member in store.members" :key="member.id">
