@@ -138,8 +138,9 @@ function deleteMember(id) {
         groupActivated,
         countGroupsPerson,
         createMembers,
-        deleteMember,
         activeGroup,
         groupTransaction,
     }
+}, {
+    persist: true
 })

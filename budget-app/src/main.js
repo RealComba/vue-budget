@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import './style.css'
 import Home from './pages/Home.vue'
 import { createWebHistory, createRouter } from 'vue-router'
@@ -23,5 +24,6 @@ const router = createRouter({
 })
 
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 
 createApp(App).use(router).use(pinia).mount('body')

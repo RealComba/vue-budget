@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 
 export const storeTransaction = defineStore ('transaction', () => {
-    const expenses = ref([0])
-    const earnings = ref([0])
+    const expenses = ref([])
+    const earnings = ref([])
     const transaction = ref ([])
     const goals = ref ([])
     const showForm = ref('close')
@@ -141,14 +141,16 @@ export const storeTransaction = defineStore ('transaction', () => {
     })
     
     const expensesTotal = computed(() => {
-        const exp = expenses?.value ?? []
-        return Math.abs(exp.reduce((totale, transazione) => totale + transazione, 0))
-    })
+        return transaction.value
+          .filter(t => t.category === 'expense' || t.category === 'savings')
+          .reduce((totale, t) => totale + Number(t.amount), 0)
+      })
 
     const earningsTotal = computed(() => {
-        const earn = earnings?.value ?? []
-        return (earn.reduce((totale, transazione) => totale + transazione, 0))
-    })
+        return transaction.value
+          .filter(t => t.category === 'earning' || t.category === 'refund-savings')
+          .reduce((totale, t) => totale + Number(t.amount), 0)
+      })
 
     const totalValue = computed(() => {
         return numberWithCommas(earningsTotal.value - expensesTotal.value)
@@ -156,7 +158,7 @@ export const storeTransaction = defineStore ('transaction', () => {
     })
 
     const balance = computed (() => {
-        return earningsTotal.value - expensesTotal.value + 12000
+        return earningsTotal.value - expensesTotal.value
     })
 
     const totalSavings = computed (() => {
@@ -203,4 +205,6 @@ export const storeTransaction = defineStore ('transaction', () => {
         groupedLabel,
         dark
     }
+}, {
+        persist: true
 })
