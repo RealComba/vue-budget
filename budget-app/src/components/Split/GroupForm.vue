@@ -37,7 +37,9 @@ function data () {
         :class="store.dark ? 'text-white' : 'text-black' " placeholder="descrizione" id="" v-model="desc"></textarea>
 
           <div class="flex flex-col gap-5">
-            <p class="font-bold">Seleziona membri</p>
+            <p v-if="store.members?.length > 0"class="font-bold">Seleziona membri</p>
+            <p v-else class="font-semibold">Nessun Membro Esistente</p>
+
             <div v-for="member in userstore.members" :key="member.name" >
               <div class="flex flex-row items-center gap-2">
                 <input type="checkbox" :value="member.name" v-model="members"/>

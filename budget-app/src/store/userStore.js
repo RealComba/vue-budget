@@ -3,24 +3,25 @@ import { ref, computed, watch } from 'vue'
 
 export const userStore = defineStore ('user', () => {
 
+const members = ref([])
 const groupData = ref([])   
 const formActive = ref()
 const activeGroup = ref()
-const memberNames = [
-  'Antonio Florea',
-  'Lorenzo Giacopuzzi',
-  'Tommaso Chieregato',
-  'Mattia Corolaita',
-];
-
-const members = ref(
-  memberNames.map(name => ({
-    name,
-    initials: getInitials(name),
-  }))
-);
-const groupTransaction = ref([])
 let id = 0;
+
+
+function createMembers(name, mail, phone) {
+
+  const newMember = {
+    id: id++,
+    name: name,
+    initials: getInitials(name),
+    mail: mail,   
+    phone: phone,
+  }
+  members.value.push(newMember)
+}
+const groupTransaction = ref([])
 
 function getInitials(name) {
   return name
@@ -45,7 +46,7 @@ function form (data) {
 function newGroup(name, desc, groupMembers) {
   const selectedMembers = members.value.filter(m =>
     groupMembers.includes(m.name))
-    selectedMembers.push({name: 'Tu', initials: 'TU', id: id++})
+    selectedMembers.push({name: 'Tu', initials: 'TU', id: id++, })
 
   const newGroup = {
     id: id++,
@@ -114,6 +115,16 @@ function pay(id) {
   }
 }
 
+function countGroupsPerson(name) {
+  const groups = groupData.value.filter(g => g.members.some(m => m.name === name))
+  return groups.length
+}
+
+function deleteMember(id) {
+  members.value = members.value.filter(m => m.id !== id)
+  console.log(members.value)
+}
+
 
     return {
         members,
@@ -125,6 +136,9 @@ function pay(id) {
         newGroup,
         newTransaction,
         groupActivated,
+        countGroupsPerson,
+        createMembers,
+        deleteMember,
         activeGroup,
         groupTransaction,
     }
