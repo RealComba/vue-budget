@@ -206,5 +206,5 @@ export const storeTransaction = defineStore ('transaction', () => {
         dark
     }
 }, {
-        persist: true
+    // persist: true,
 })

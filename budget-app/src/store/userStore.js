@@ -19,6 +19,7 @@ function createMembers(name, mail, phone) {
     initials: getInitials(name),
     mail: mail,   
     phone: phone,
+    transactions: [],
   }
   members.value.push(newMember)
 }
@@ -32,11 +33,7 @@ function getInitials(name) {
 }
 
 function formatDate(date) {
-    // const now = new Date()
     const d = new Date(date)
-    // const diff = now.setHours(0,0,0,0) - d.setHours(0,0,0,0)
-    // if (diff === 0) return 'Oggi'
-    // if (diff === 86400000) return 'Yesterday'
     return d.toLocaleDateString('it-IT', { year: 'numeric' ,month: 'short', day: 'numeric' }) 
   }
 
@@ -62,30 +59,42 @@ function newGroup(name, desc, groupMembers) {
 }
 
 function newTransaction(groupid, name, amount, category, description, buyer, memberSplit) {
+
   const initials = memberSplit.map(memberName => {
     if (memberName === 'Tu') return 'TU';
     const member = members.value.find(m => m.name === memberName);
     return member ? member.initials : '';
   });
 
+
   const transaction = {
     groupId: groupid,
     id: id++,
     name: name,
     amount: amount,
+    amountPerPerson: (amount / memberSplit.length).toFixed(2),
     date: formatDate(Date.now()),
     category: category,
     description: description,
     buyer: buyer,
     members: memberSplit,
     initials: initials,
-    paid: buyer === 'Tu' ? true : false,
+    paid: false,
   }
 
-  groupTransaction.value.push(transaction)
-  const group = groupData.value.find(g => g.id === groupid)
-  console.log(transaction.members)
 
+  groupTransaction.value.push(transaction)
+  transaction.members.forEach(memberName => {
+    const member = members.value.find(m => m.name === memberName);
+    if (member) {
+      member.transactions.push({ ...transaction, paid: false });
+    }
+  });
+  console.log('lista membri', members.value)
+  console.log('lista membri in transazione',transaction.members)
+  console.log('transazione', transaction)
+
+  const group = groupData.value.find(g => g.id === groupid)
   console.log('groupData:', groupData.value)
   if (group) {
     group.amount += amount
@@ -148,5 +157,5 @@ function deleteMember(id) {
         groupTransaction,
     }
 }, {
-    persist: true
+    // persist: true,
 })
