@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
+import { storeTransaction } from './store'
 
 export const userStore = defineStore ('user', () => {
 
@@ -83,6 +84,7 @@ function newTransaction(groupid, name, amount, category, description, buyer, mem
 
   groupTransaction.value.push(transaction)
   const group = groupData.value.find(g => g.id === groupid)
+  console.log(transaction.members)
 
   console.log('groupData:', groupData.value)
   if (group) {
@@ -108,10 +110,13 @@ const myAmount = computed(() => {
 })
 
 function pay(id) {
+  const mainStore = storeTransaction()
   const transaction = groupTransaction.value.find(t => t.id === id)
   if (transaction) {
     transaction.paid = true
     console.log(transaction)
+    // console.log(mainStore.transaction)
+    // mainStore.newTsx(transaction.category, transaction.amount, 'expense', transaction.description)
   }
 }
 
@@ -138,6 +143,7 @@ function deleteMember(id) {
         groupActivated,
         countGroupsPerson,
         createMembers,
+        deleteMember,
         activeGroup,
         groupTransaction,
     }

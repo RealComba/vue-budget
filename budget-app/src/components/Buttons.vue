@@ -27,11 +27,8 @@ function addTransaction() {
         </div>
         <div class="flex flex-col w-full h-20 border-1 border-gray-300 rounded-md text-center justify-center items-center font-medium gap-2" @click="router.push({ path:'/split'})"
         :class="(store.dark) ? 'bg-neutral-700 border-none' : 'bg-white' ">
-            <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20.33 3.66996C20.1408 3.48213 19.9035 3.35008 19.6442 3.28833C19.3849 3.22659 19.1135 3.23753 18.86 3.31996L4.23 8.19996C3.95867 8.28593 3.71891 8.45039 3.54099 8.67255C3.36307 8.89471 3.25498 9.16462 3.23037 9.44818C3.20576 9.73174 3.26573 10.0162 3.40271 10.2657C3.5397 10.5152 3.74754 10.7185 4 10.85L10.07 13.85L13.07 19.94C13.1906 20.1783 13.3751 20.3785 13.6029 20.518C13.8307 20.6575 14.0929 20.7309 14.36 20.73H14.46C14.7461 20.7089 15.0192 20.6023 15.2439 20.4239C15.4686 20.2456 15.6345 20.0038 15.72 19.73L20.67 5.13996C20.7584 4.88789 20.7734 4.6159 20.7132 4.35565C20.653 4.09541 20.5201 3.85762 20.33 3.66996ZM4.85 9.57996L17.62 5.31996L10.53 12.41L4.85 9.57996ZM14.43 19.15L11.59 13.47L18.68 6.37996L14.43 19.15Z" fill="#000000"
-                :stroke="store.dark ? '#ffffff' : '#000000'"/>
-            </svg>
-            <p>Invia</p>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="30px" height="22px" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            <p>Dividi</p>
         </div>
         <div class="flex flex-col w-full h-20 border-1 border-gray-300 rounded-md text-center justify-center items-center font-medium gap-2" @click="router.push({ path:'/chart'})"
         :class="(store.dark) ? 'bg-neutral-700 border-none' : 'bg-white' ">
