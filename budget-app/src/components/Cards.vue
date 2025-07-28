@@ -27,7 +27,7 @@ const lastTransaction = computed (() => {
             <span class="flex flex-row justify-between h-10 m-10 items-center p-5" v-if="card.category === 'earning'">
                 <div class="flex flex-row items-center gap-5">
                     <div class="flex bg-green-200 rounded-md w-10 h-10 justify-center">
-                        <img class="w-8" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/arrow-up-right-svgrepo-com.svg" alt="">
+                        <img class="w-8" src="/Users/cont2/Downloads/interactive-vue-map-sunday/vue-budget/budget-app/src/svg/arrow-up-right-svgrepo-com.svg" alt="">
                     </div>
                     <div class="flex flex-col m-0px text-container">
                         <p class="text-md sm:text-lg font-medium ">{{ card.description }}</p>
@@ -41,7 +41,7 @@ const lastTransaction = computed (() => {
             <span class="flex flex-row items-center justify-between h-10 m-10 p-5" v-if="card.category === 'expense'">
                 <div class="flex flex-row items-center gap-5">
                     <div class="flex bg-red-200 rounded-md w-10 h-10 justify-center">
-                        <img class="w-8" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/arrow-down-right-svgrepo-com.svg" alt="">
+                        <img class="w-8" src="/Users/cont2/Downloads/interactive-vue-map-sunday/vue-budget/budget-app/src/svg/arrow-down-right-svgrepo-com.svg" alt="">
                     </div>
                     <div class="flex flex-col m-0 text-container">
                         <p class="text-md sm:text-lg font-medium">{{ card.description }}</p>
@@ -55,7 +55,7 @@ const lastTransaction = computed (() => {
             <span class="flex flex-row items-center justify-between h-10 m-10 p-5" v-if="card.category === 'savings'">
                 <div class="flex flex-row items-center gap-5 h-10">
                     <div class="flex bg-blue-400 rounded-md w-10 h-10 justify-center">
-                        <img class="w-6" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/target-svgrepo-com.svg" alt="">
+                        <img class="w-6" src="/Users/cont2/Downloads/interactive-vue-map-sunday/vue-budget/budget-app/src/svg/target-svgrepo-com.svg" alt="">
                     </div>
                     <div class="flex flex-col m-0 text-container">
                         <p class="text-md sm:text-lg font-medium">{{ card.type }}</p>
@@ -69,7 +69,7 @@ const lastTransaction = computed (() => {
             <span class="flex flex-row items-center justify-between h-10 m-10 p-5" v-if="card.category === 'refund-savings'">
                 <div class="flex flex-row items-center gap-5">
                     <div class="flex bg-blue-400 rounded-md w-10 h-10 justify-center">
-                        <img class="w-6" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/target-svgrepo-com.svg" alt="">
+                        <img class="w-6" src="/Users/cont2/Downloads/interactive-vue-map-sunday/vue-budget/budget-app/src/svg/target-svgrepo-com.svg" alt="">
                     </div>
                     <div class="flex flex-col m-0px text-container">
                         <p class="text-md sm:text-lg font-medium">{{ card.type }}</p>

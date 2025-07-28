@@ -38,15 +38,15 @@ function payId(id) {
                             <div class="flex flex-row">
                                 <p class="text-gray-500">Pagato da: <span class="font-semibold">{{ transaction.buyer }}</span></p>
                             </div>
-                            <p v-if="transaction.paid === false"class="bg-gray-100 rounded-2xl p-1.5 text-center text-sm font-semibold w-25">in sospeso</p>
+                            <p v-if="transaction.paid === false" class="bg-gray-100 rounded-2xl p-1.5 text-center text-sm font-semibold w-25">in sospeso</p>
                             <p v-else class="bg-green-500 rounded-2xl p-1.5 text-center text-sm font-semibold w-25 text-white">Pagato</p>
                         </div>
-                        <p v-if="transaction.description" class="text-gray-500">descrizione: {{ transaction.description }}</p>
+                        <p v-if="transaction.description" class="text-gray-500 w-80">descrizione: {{ transaction.description }}</p>
                         <div class="flex justify-between pt-2">
                             <div class="flex flex-row pt-2 gap-1">
                                 <p v-for="initial in transaction.initials" class="p-1 rounded-full text-gray-600 bg-gray-100 w-8 h-8 text-center">{{ initial }}</p>
                             </div>
-                            <button v-if="transaction.paid === false" class="flex flex-row p-2 border-gray-200 rounded-lg border-1 w-20 sm:w-25 justify-evenly" 
+                            <button v-if="transaction.buyer !== 'Tu' && transaction.paid === false" class="flex flex-row p-2 border-gray-200 rounded-lg border-1 w-20 sm:w-25 justify-evenly" 
                              @click="payId(transaction.id)"><img class="w-4"src="https://www.svgrepo.com/show/218150/confirm.svg" alt="">Salda</button>
                         </div>
                     </div> 

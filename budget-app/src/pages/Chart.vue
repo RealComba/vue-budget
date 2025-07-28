@@ -111,7 +111,7 @@ function active(param) {
                         <p class="font-bold text-xl">Progresso Obiettivi</p>
                     </div>
                     <div v-if="show === 'exp'"class="flex flex-row gap-2 items-center">
-                        <img class="w-7" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/cake-graphic-svgrepo-com.svg" alt="">
+                        <img class="w-7" src="" alt="">
                         <p class="font-bold text-xl">Spese per Categoria</p>
                     </div>
                     <div v-if="show === 'goal'">

@@ -26,7 +26,7 @@ const store = storeTransaction()
         </div>
         <div class="p-5 sm:p-10">
             <img v-if="(!store.dark)" class="w-10 h-10 sm:w-14 h-14" src="https://www.svgrepo.com/show/481069/cute-pig-line-drawing.svg" alt="">
-            <img v-else class="w-10 h-10 sm:w-14 h-14" src="/Users/tommasocont/Desktop/vue-budget/budget-app/src/svg/cute-pig-line-drawing-svgrepo-com.svg" alt="">
+            <img v-else class="w-10 h-10 sm:w-14 h-14" src="/Users/cont2/Downloads/interactive-vue-map-sunday/vue-budget/budget-app/src/svg/cute-pig-line-drawing-svgrepo-com.svg" alt="">
         </div>
     </div>
 </div>

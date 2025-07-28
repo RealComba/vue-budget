@@ -8,6 +8,7 @@ const members = ref([])
 const groupData = ref([])   
 const formActive = ref()
 const activeGroup = ref()
+const groupTransaction = ref([])
 let id = 0;
 
 
@@ -23,7 +24,6 @@ function createMembers(name, mail, phone) {
   }
   members.value.push(newMember)
 }
-const groupTransaction = ref([])
 
 function getInitials(name) {
   return name
@@ -108,9 +108,9 @@ function groupActivated(data) {
 }
 
 const myAmount = computed(() => {
-  const myCredit = groupTransaction.value.filter(t => t.buyer === 'Tu').map(t => Number(t.amount) - (Number(t.amount) / (t.members?.length || 1))).reduce((sum, val) => sum + val, 0)
+  const myCredit = groupTransaction.value.filter(t => t.buyer === 'Tu' && t.paid !== true).map(t => Number(t.amount) - (Number(t.amount) / (t.members?.length || 1))).reduce((sum, val) => sum + val, 0)
   const myDebit = groupTransaction.value.filter(t => t.buyer !== 'Tu' && t.members?.includes('Tu') && t.paid !== true).map(t => Number(t.amount) / (t.members?.length || 1)).reduce((sum, val) => sum + val, 0)
-
+  console.log(groupTransaction.value)
   return {
     total: myCredit - myDebit,
     myCredit: myCredit,
@@ -119,7 +119,6 @@ const myAmount = computed(() => {
 })
 
 function pay(id) {
-  const mainStore = storeTransaction()
   const transaction = groupTransaction.value.find(t => t.id === id)
   if (transaction) {
     transaction.paid = true
@@ -139,12 +138,21 @@ function deleteMember(id) {
   console.log(members.value)
 }
 
+function paidTransaction(transactionId) {
+  const transaction = groupTransaction.value.find(t => t.id === transactionId)
+  if (transaction) {
+    transaction.paid = true
+  }
+  console.log(transaction)
+}
+
 
     return {
         members,
         groupData,
         formActive,
         myAmount,
+        paidTransaction,
         pay,
         form,
         newGroup,

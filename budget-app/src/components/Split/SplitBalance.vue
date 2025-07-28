@@ -14,9 +14,10 @@ function paid(memberName, transactionId) {
     const transaction = member.transactions.find(t => t.id === transactionId);
     if (transaction) {
       transaction.paid = true;
-      store.myAmount.myDebit = store.myAmount.myDebit - (transaction.amount / transaction.members.length)
+      store.paidTransaction(transactionId)
     }
   }
+  console.log(store.members)
 }
 
 </script>

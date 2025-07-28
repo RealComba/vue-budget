@@ -52,7 +52,7 @@ const options = computed(() =>{
     plugins: {
     legend: {
       labels: {
-        color: '#ffffff' 
+        color: store.dark ? '#fff' : '#000',
       }
     },
     tooltip: {
