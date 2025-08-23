@@ -9,10 +9,12 @@ const groupData = ref([])
 const formActive = ref()
 const activeGroup = ref()
 const groupTransaction = ref([])
-let id = 0;
+
 
 
 function createMembers(name, mail, phone) {
+
+  let id = 0;
 
   const newMember = {
     id: id++,
@@ -42,6 +44,7 @@ function form (data) {
 }
 
 function newGroup(name, desc, groupMembers) {
+  let id = 0;
   const selectedMembers = members.value.filter(m =>
     groupMembers.includes(m.name))
     selectedMembers.push({name: 'Tu', initials: 'TU', id: id++, })
@@ -59,6 +62,7 @@ function newGroup(name, desc, groupMembers) {
 }
 
 function newTransaction(groupid, name, amount, category, description, buyer, memberSplit) {
+  let id = 0;
 
   const initials = memberSplit.map(memberName => {
     if (memberName === 'Tu') return 'TU';
@@ -108,19 +112,40 @@ function groupActivated(data) {
 }
 
 const myAmount = computed(() => {
-  const myCredit = groupTransaction.value.filter(t => t.buyer === 'Tu' && t.paid !== true).map(t => Number(t.amount) - (Number(t.amount) / (t.members?.length || 1))).reduce((sum, val) => sum + val, 0)
-  const myDebit = groupTransaction.value.filter(t => t.buyer !== 'Tu' && t.members?.includes('Tu') && t.paid !== true).map(t => Number(t.amount) / (t.members?.length || 1)).reduce((sum, val) => sum + val, 0)
-  console.log(groupTransaction.value)
+  let myCredit = 0
+  let myDebit = 0
+
+  members.value.forEach(member => {
+    member.transactions.forEach(t => {
+
+      if (t.buyer === 'Tu' && t.paid !== true) {
+        myCredit += Number(t.amountPerPerson)
+      }
+
+      if (t.buyer !== 'Tu' && t.members?.includes('Tu') && t.paid !== true) {
+        myDebit += Number(t.amount) / (t.members?.length || 1)
+      }
+    })
+  })
+
   return {
     total: myCredit - myDebit,
-    myCredit: myCredit,
-    myDebit: myDebit,
+    myCredit,
+    myDebit,
   }
 })
 
 function pay(id) {
   const transaction = groupTransaction.value.find(t => t.id === id)
+
   if (transaction) {
+    transaction.member.forEach(name => {
+    const member = members.value.find(m => m.name === name)
+    if (member) {
+      const memberTsx = member.transaction.find(t => t.id === id)
+      if(memberTsx ===)
+    }
+  })
     transaction.paid = true
     console.log(transaction)
     // console.log(mainStore.transaction)
@@ -140,7 +165,11 @@ function deleteMember(id) {
 
 function paidTransaction(transactionId) {
   const transaction = groupTransaction.value.find(t => t.id === transactionId)
+  
   if (transaction) {
+    transaction.member.forEach(name => {
+
+    })
     transaction.paid = true
   }
   console.log(transaction)
