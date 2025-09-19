@@ -158,7 +158,7 @@ function active(param) {
                     :class="store.dark ? 'bg-neutral-700 border-none' : 'bg-white'">
                         <p class="text-orange-500 font-extrabold text-2xl">€{{ higherAmount.nmax }}</p>
                         <p class="text-sm">Categoria Top</p>
-                        <p class="text-sm">{{ higherAmount.name.join() }}</p>
+                        <p class="text-sm text-orange-500">{{ higherAmount.name.join() }}</p>
                     </div>
                 </div>
             </div>

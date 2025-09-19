@@ -141,10 +141,6 @@ function pay(id) {
   if (transaction) {
     transaction.member.forEach(name => {
     const member = members.value.find(m => m.name === name)
-    if (member) {
-      const memberTsx = member.transaction.find(t => t.id === id)
-      if(memberTsx ===)
-    }
   })
     transaction.paid = true
     console.log(transaction)
