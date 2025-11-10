@@ -72,7 +72,7 @@ function newTransaction(groupid, name, amount, category, description, buyer, mem
 
 
   const transaction = {
-    groupId: groupid,
+    groupId: groupid++,
     id: id++,
     name: name,
     amount: amount,
@@ -115,18 +115,16 @@ const myAmount = computed(() => {
   let myCredit = 0
   let myDebit = 0
 
-  members.value.forEach(member => {
-    member.transactions.forEach(t => {
+  groupTransaction.value.forEach(t => {
+  if (t.buyer === 'Tu' && !t.paid) {
+    myCredit += Number(t.amountPerPerson)
+  }
 
-      if (t.buyer === 'Tu' && t.paid !== true) {
-        myCredit += Number(t.amountPerPerson)
-      }
+  if (t.buyer !== 'Tu' && t.members?.includes('Tu') && !t.paid) {
+    myDebit += Number(t.amountPerPerson)
+  }
+})
 
-      if (t.buyer !== 'Tu' && t.members?.includes('Tu') && t.paid !== true) {
-        myDebit += Number(t.amount) / (t.members?.length || 1)
-      }
-    })
-  })
 
   return {
     total: myCredit - myDebit,
@@ -137,16 +135,24 @@ const myAmount = computed(() => {
 
 function pay(id) {
   const transaction = groupTransaction.value.find(t => t.id === id)
+  const findMemberTsx = members.value.find(m => m.name === transaction.buyer)
 
-  if (transaction) {
-    transaction.member.forEach(name => {
-    const member = members.value.find(m => m.name === name)
-  })
-    transaction.paid = true
-    console.log(transaction)
-    // console.log(mainStore.transaction)
-    // mainStore.newTsx(transaction.category, transaction.amount, 'expense', transaction.description)
-  }
+  if (findMemberTsx) {
+    findMemberTsx.transactions = findMemberTsx.transactions.map(t => {
+      if (t.id === id) {
+        return { ...t, paid: true }
+      }}
+  )}
+  transaction.paid = true
+  // if (transaction) {
+  //   transaction.member.forEach(name => {
+  //   const member = members.value.find(m => m.name === name)
+  // })
+  //   transaction.paid = true
+  //   console.log(transaction)
+  //   // console.log(mainStore.transaction)
+  //   // mainStore.newTsx(transaction.category, transaction.amount, 'expense', transaction.description)
+  // }
 }
 
 function countGroupsPerson(name) {

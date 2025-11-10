@@ -25,7 +25,7 @@ function payId(id) {
                                 <div class="bg-blue-200 rounded-lg w-10 h-10" :class="transaction.paid === false ? 'bg-blue-200' : 'bg-green-200'"></div>
                                 <div class="flex flex-col">
                                     <p class="font-semibold text-lg">{{ transaction.name }}</p>
-                                    <p class="text-base w-65"
+                                    <p class="text-base w-full"
                                     :class="store.dark ? 'text-gray-300' : 'text-gray-500'">{{ store.groupData.find(g => g.id === transaction.groupId).name }} - {{ transaction.date }}</p>
                                 </div>
                             </div>
