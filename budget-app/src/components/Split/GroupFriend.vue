@@ -25,7 +25,7 @@ function remove(id) {
                 <button class="p-2 w-25 h-10 bg-black rounded-lg text-white font-semibold" @click="form()">Aggiungi +</button>
             </div>
             <div v-for="member in store.members" :key="member.id">
-                <div class="bg-white border-1 border-gray-300 p-5 rounded-lg flex flex-row items-center justify-between">
+                <div :class="(darkStore.dark) ? 'bg-neutral-700 border-none' : 'bg-white' "class="border-1 border-gray-300 p-5 rounded-lg flex flex-row items-center justify-between">
                     <div class="flex flex-row justify-center items-center gap-4">
                         <div class="bg-gray-200 rounded-full p-1 w-10 h-10 flex justify-center items-center">
                             <p> {{ member.initials }} </p>
@@ -37,7 +37,7 @@ function remove(id) {
                         </div>
                     </div>
                     <div class="flex flex-row justify-center items-center gap-4">
-                        <p class="rounded-xl text-sm p-0.25 pl-2 pr-2 border-1 border-gray-300 text-black font-semibold ">{{ store.countGroupsPerson(member.name) }} gruppi</p>
+                        <p :class="(darkStore.dark) ? 'text-white' : 'text-black' "class="text-sm p-0.25 pl-2 pr-2 border-1 border-gray-300 text-black font-semibold ">{{ store.countGroupsPerson(member.name) }} gruppi</p>
                         <button class="border-1 border-gray-300 p-2 w-10 h-10 rounded-lg" @click="remove(member.id)">X</button>
                     </div>
                 </div>  

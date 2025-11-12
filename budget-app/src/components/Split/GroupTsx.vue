@@ -7,6 +7,7 @@ const darkStore = storeTransaction()
 const store = userStore()
 
 function payId(id) {
+    console.log(id)
     store.pay(id)
 }
 

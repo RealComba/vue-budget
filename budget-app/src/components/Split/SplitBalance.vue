@@ -9,14 +9,7 @@ const colors = ["bg-red-500", "bg-pink-500", "bg-purple-500", "bg-violet-500", "
 
 
 function paid(memberName, transactionId) {
-  const member = store.members.find(m => m.name === memberName);
-  if (member) {
-    const transaction = member.transactions.find(t => t.id === transactionId);
-    if (transaction) {
-      transaction.paid = true;
-      store.paidTransaction(transactionId)
-    }
-  }
+  store.paidTransaction(transactionId, memberName)
   console.log(store.members)
 }
 

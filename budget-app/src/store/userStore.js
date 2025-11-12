@@ -10,7 +10,8 @@ const formActive = ref()
 const activeGroup = ref()
 const groupTransaction = ref([])
 
-
+// contatore globale per id transazioni
+let nextTransactionId = 0
 
 function createMembers(name, mail, phone) {
 
@@ -43,26 +44,26 @@ function form (data) {
     formActive.value = data
 }
 
+let groupId = 0;
 function newGroup(name, desc, groupMembers) {
-  let id = 0;
+  let memberId = 0;
   const selectedMembers = members.value.filter(m =>
     groupMembers.includes(m.name))
-    selectedMembers.push({name: 'Tu', initials: 'TU', id: id++, })
+    selectedMembers.push({name: 'Tu', initials: 'TU', id: memberId++, })
 
   const newGroup = {
-    id: id++,
+    id: groupId++,
     name: name,
     desc: desc,
     members: selectedMembers,
     amount: 0,
   }
-
   groupData.value.push(newGroup)
   console.log(groupData.value)
 }
 
 function newTransaction(groupid, name, amount, category, description, buyer, memberSplit) {
-  let id = 0;
+  const id = nextTransactionId++
 
   const initials = memberSplit.map(memberName => {
     if (memberName === 'Tu') return 'TU';
@@ -72,8 +73,8 @@ function newTransaction(groupid, name, amount, category, description, buyer, mem
 
 
   const transaction = {
-    groupId: groupid++,
-    id: id++,
+    groupId: groupid,
+    id,
     name: name,
     amount: amount,
     amountPerPerson: (amount / memberSplit.length).toFixed(2),
@@ -84,10 +85,11 @@ function newTransaction(groupid, name, amount, category, description, buyer, mem
     members: memberSplit,
     initials: initials,
     paid: false,
+    paidBy: [],
   }
 
-
   groupTransaction.value.push(transaction)
+
   transaction.members.forEach(memberName => {
     const member = members.value.find(m => m.name === memberName);
     if (member) {
@@ -97,6 +99,7 @@ function newTransaction(groupid, name, amount, category, description, buyer, mem
   console.log('lista membri', members.value)
   console.log('lista membri in transazione',transaction.members)
   console.log('transazione', transaction)
+  console.log('groupTransaction:', groupTransaction.value)
 
   const group = groupData.value.find(g => g.id === groupid)
   console.log('groupData:', groupData.value)
@@ -115,15 +118,21 @@ const myAmount = computed(() => {
   let myCredit = 0
   let myDebit = 0
 
-  groupTransaction.value.forEach(t => {
-  if (t.buyer === 'Tu' && !t.paid) {
-    myCredit += Number(t.amountPerPerson)
-  }
+groupTransaction.value.forEach(t => {
+    const paidBy = t.paidBy || []
 
-  if (t.buyer !== 'Tu' && t.members?.includes('Tu') && !t.paid) {
-    myDebit += Number(t.amountPerPerson)
-  }
-})
+    if (t.buyer === 'Tu') {
+      const others = t.members.filter(m => m !== 'Tu')
+      const unpaidCount = others.filter(m => !paidBy.includes(m)).length
+      myCredit += unpaidCount * Number(t.amountPerPerson)
+    }
+
+    if (t.buyer !== 'Tu' && t.members?.includes('Tu')) {
+      if (!paidBy.includes('Tu')) {
+        myDebit += amountPer
+      }
+    }
+  })
 
 
   return {
@@ -144,15 +153,6 @@ function pay(id) {
       }}
   )}
   transaction.paid = true
-  // if (transaction) {
-  //   transaction.member.forEach(name => {
-  //   const member = members.value.find(m => m.name === name)
-  // })
-  //   transaction.paid = true
-  //   console.log(transaction)
-  //   // console.log(mainStore.transaction)
-  //   // mainStore.newTsx(transaction.category, transaction.amount, 'expense', transaction.description)
-  // }
 }
 
 function countGroupsPerson(name) {
@@ -165,15 +165,31 @@ function deleteMember(id) {
   console.log(members.value)
 }
 
-function paidTransaction(transactionId) {
+function paidTransaction(transactionId, memberName) {
   const transaction = groupTransaction.value.find(t => t.id === transactionId)
-  
-  if (transaction) {
-    transaction.member.forEach(name => {
+    if (!transaction) return
 
-    })
+
+  if (memberName && !transaction.paidBy.includes(memberName)) {
+    transaction.paidBy.push(memberName)
+  }
+
+    if (memberName) {
+    const member = members.value.find(m => m.name === memberName)
+    if (member) {
+      const memberTsx = member.transactions.find(t => t.id === transactionId)
+      if (memberTsx) memberTsx.paid = true
+    }
+  }
+
+  const others = transaction.members.filter(m => m !== transaction.buyer)
+  const allPaid = others.every(m => transaction.paidBy.includes(m))
+  if (allPaid) {
     transaction.paid = true
   }
+  
+
+
   console.log(transaction)
 }
 
