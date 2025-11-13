@@ -19,9 +19,36 @@ function paid(memberName, transactionId) {
 <div class="flex justify-center">
     <div class="flex flex-col w-120 justify-between items-center gap-5">
         <div class="flex flex-row bg-blue-50 rounded-lg border-1 border-gray-300 w-120 justify-between p-8">
-            <p class="text-center text-sm"><span class="text-3xl text-blue-600 font-extrabold">{{ store.groupTransaction.filter(t => t.buyer === 'Tu').length }}</span><br>Da Ricevere</p>
-            <p class="text-center text-sm"><span class="text-3xl text-green-600 font-extrabold">{{ store.groupTransaction.filter(t => t.buyer === true && t.paid === false).length }}</span><br>Pagamenti Ricevuti</p>
-            <p class="text-center text-sm"><span class="text-3xl text-purple-600 font-extrabold">{{ store.groupTransaction.filter(t => t.paid === true && t.buyer !== 'Tu').length }}</span><br> Spese Saldate</p>
+            <!-- Spese da ricevere: per ogni membro che non ha pagato la sua quota, io (buyer) ricevo -->
+            <p class="text-center text-sm"><span class="text-3xl text-blue-600 font-extrabold">{{ 
+              store.groupTransaction.reduce((count, t) => {
+                if (t.buyer === 'Tu') {
+                  const unpaid = t.members.filter(m => m !== 'Tu' && !t.paidBy?.includes(m))
+                  return count + unpaid.length
+                }
+                return count
+              }, 0)
+            }}</span><br>Da Ricevere</p>
+            
+            <!-- Pagamenti ricevuti: per ogni membro che ha pagato la sua quota -->
+            <p class="text-center text-sm"><span class="text-3xl text-green-600 font-extrabold">{{ 
+              store.groupTransaction.reduce((count, t) => {
+                if (t.buyer === 'Tu') {
+                  return count + (t.paidBy?.length || 0)
+                }
+                return count
+              }, 0)
+            }}</span><br>Pagamenti Ricevuti</p>
+            
+            <!-- Spese pagate: quante quote ho già saldato io -->
+            <p class="text-center text-sm"><span class="text-3xl text-purple-600 font-extrabold">{{ 
+              store.groupTransaction.reduce((count, t) => {
+                if (t.buyer !== 'Tu' && t.members?.includes('Tu') && t.paidBy?.includes('Tu')) {
+                  return count + 1
+                }
+                return count
+              }, 0)
+            }}</span><br>Spese Pagate</p>
         </div>
         <div v-for="(group, idx) in store.groupData" :key="group.id" class="border-1 border-gray-300 rounded-lg pb-4">
             <div class="flex flex-col">
